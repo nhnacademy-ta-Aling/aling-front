@@ -1,17 +1,10 @@
 <template>
-  <v-app>
-    <index-page></index-page>
-  </v-app>
+  <router-view />
 </template>
 
 <script>
-import indexPage from "@/components/index-page.vue";
-
 export default {
-  name: "app-view",
-  components: {
-    indexPage,
-  },
+  name: "index-view",
 
   data: () => ({
     //
