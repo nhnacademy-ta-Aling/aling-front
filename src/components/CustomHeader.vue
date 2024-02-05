@@ -6,9 +6,11 @@
 
     <input type="text" v-model="input" placeholder="Search..." />
 
-    <v-tabs centered class="ml-n9" color="#3D6BFF">
-      <v-tab v-for="svg in svgs" :key="svg">
-        <img :src="svg" alt="icon" />
+    <v-tabs centered class="ml-n9" color="#3D6BFF" v-model="currentIndex">
+      <v-tab v-for="(svg, index) in svgs" :key="svg">
+        <a :href="generateLink(index)">
+          <img :src="svg" alt="icon" />
+        </a>
       </v-tab>
     </v-tabs>
 
@@ -23,6 +25,18 @@ export default {
   name: "custom-header",
   data: () => ({
     svgs,
+    path: ["/", "", "/group", ""],
   }),
+  methods: {
+    generateLink(index) {
+      this.currentIndex = index;
+      return this.path[index];
+    },
+  },
+  computed: {
+    currentIndex: function () {
+      return this.path.indexOf(this.$route.path);
+    },
+  },
 };
 </script>

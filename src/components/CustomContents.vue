@@ -1,8 +1,6 @@
-<script setup></script>
-
 <template>
   <v-col cols="14" sm="8">
-    <v-sheet min-height="70vh" rounded="lg" />
+    <v-sheet min-height="70vh" rounded="lg"> </v-sheet>
   </v-col>
 </template>
 
