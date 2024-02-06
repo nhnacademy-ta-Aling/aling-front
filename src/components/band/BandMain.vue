@@ -1,7 +1,7 @@
 <script>
-import RightNavBar from "@/components/RightNavBar.vue";
-import LeftNavBar from "@/components/LeftNavBar.vue";
-import CustomHeader from "@/components/CustomHeader.vue";
+import RightNavBar from "@/components/index/RightNavBar.vue";
+import LeftNavBar from "@/components/index/LeftNavBar.vue";
+import CustomHeader from "@/components/index/CustomHeader.vue";
 
 export default {
   components: { CustomHeader, LeftNavBar, RightNavBar },

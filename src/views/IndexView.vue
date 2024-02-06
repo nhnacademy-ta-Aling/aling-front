@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import CustomHeader from "@/components/CustomHeader.vue";
-import LeftNavBar from "@/components/LeftNavBar.vue";
-import CustomContents from "@/components/CustomContents.vue";
-import RightNavBar from "@/components/RightNavBar.vue";
+import CustomHeader from "@/components/index/CustomHeader.vue";
+import LeftNavBar from "@/components/index/LeftNavBar.vue";
+import CustomContents from "@/components/index/CustomContents.vue";
+import RightNavBar from "@/components/index/RightNavBar.vue";
 
 export default {
   name: "index-page",
