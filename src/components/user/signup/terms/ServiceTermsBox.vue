@@ -1,7 +1,7 @@
 <script>
-import TermsArticleTitle from "@/views/user/signup/terms/TermsArticleTitle.vue";
-import TermsArticle from "@/views/user/signup/terms/TermsArticle.vue";
-import TermsCheckBox from "@/views/user/signup/terms/TermsCheckBox.vue";
+import TermsArticleTitle from "@/components/user/signup/terms/TermsArticleTitle.vue";
+import TermsArticle from "@/components/user/signup/terms/TermsArticle.vue";
+import TermsCheckBox from "@/components/user/signup/terms/TermsCheckBox.vue";
 
 export default {
   name: "serviceTermsBox",

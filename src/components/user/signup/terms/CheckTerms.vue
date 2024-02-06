@@ -1,14 +1,12 @@
 <script>
-import ServiceTermsBox from "@/views/user/signup/terms/ServiceTermsBox.vue";
-import LeftNavBar from "@/components/LeftNavBar.vue";
-import RightNavBar from "@/components/RightNavBar.vue";
-import CustomHeader from "@/components/CustomHeader.vue";
-import BasicButton from "@/views/commons/BasicButton.vue";
+import ServiceTermsBox from "@/components/user/signup/terms/ServiceTermsBox.vue";
+import LeftNavBar from "@/components/index/LeftNavBar.vue";
+import RightNavBar from "@/components/index/RightNavBar.vue";
+import CustomHeader from "@/components/index/CustomHeader.vue";
 
 export default {
   name: "checkTerms",
   components: {
-    BasicButton,
     ServiceTermsBox: ServiceTermsBox,
     CustomHeader: CustomHeader,
     LeftNavBar: LeftNavBar,
@@ -70,7 +68,6 @@ export default {
                 <service-terms-box :article="article"></service-terms-box>
               </div>
             </v-sheet>
-            <basic-button msg="Hello"></basic-button>
           </v-col>
           <right-nav-bar />
         </v-row>

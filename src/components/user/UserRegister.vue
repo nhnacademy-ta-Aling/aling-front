@@ -1,5 +1,5 @@
 <script setup>
-import BasicInput from "@/views/commons/BasicInput.vue";
+import BasicInput from "@/components/commons/BasicInput.vue";
 </script>
 
 <template>
