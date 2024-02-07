@@ -1,21 +1,10 @@
 <template>
   <v-app>
-    <custom-header />
     <router-view />
   </v-app>
 </template>
 
-<script>
-import CustomHeader from "@/components/index/header/CustomHeader.vue";
-
-export default {
-  name: "index-view",
-  components: { CustomHeader },
-  data: () => ({
-    //
-  }),
-};
-</script>
+<script></script>
 
 <style>
 @font-face {

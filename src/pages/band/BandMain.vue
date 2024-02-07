@@ -1,28 +1,21 @@
 <script>
-import RightNavBar from "@/components/index/RightNavBar.vue";
+import { defineComponent } from "vue";
 import LeftNavBar from "@/components/index/LeftNavBar.vue";
 
-export default {
-  components: { LeftNavBar, RightNavBar },
-};
+export default defineComponent({
+  components: { LeftNavBar },
+});
 </script>
 
 <template>
-  <v-app id="inspire">
-    <v-main class="grey lighten-3">
-      <v-container>
-        <v-row>
-          <left-nav-bar />
-
-          <v-col cols="14" sm="8">
-            <v-sheet min-height="70vh" rounded="lg"> </v-sheet>
-          </v-col>
-
-          <right-nav-bar />
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+  <v-row>
+    <left-nav-bar class="hidden-sm-and-down" />
+    <v-col>
+      <v-sheet min-height="70vh" rounded="lg">
+        <h1>This is Group page</h1>
+      </v-sheet>
+    </v-col>
+  </v-row>
 </template>
 
 <style scoped></style>

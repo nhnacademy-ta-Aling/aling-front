@@ -1,16 +1,10 @@
 <script>
 import ServiceTermsBox from "@/pages/user/signup/terms/ServiceTermsBox.vue";
-import LeftNavBar from "@/components/index/LeftNavBar.vue";
-import RightNavBar from "@/components/index/RightNavBar.vue";
-import CustomHeader from "@/components/index/header/CustomHeader.vue";
 
 export default {
   name: "checkTerms",
   components: {
     ServiceTermsBox: ServiceTermsBox,
-    CustomHeader: CustomHeader,
-    LeftNavBar: LeftNavBar,
-    RightNavBar: RightNavBar,
   },
   data: () => {
     return {
@@ -25,7 +19,7 @@ export default {
             "이용약관이용약관이용약관이용약관이용약관이용약관이용약관이용약관이용약관이용약관이용약관이용약관이용약관이용약관" +
             "이용약관이용약관이용약관이용약관이용약관이용약관이용약관이용약관이용약관이용약관이용약관이용약관이용약관이용약관",
           checkBoxInfo: {
-            id: "checkBox" + this.id,
+            id: "checkBox1",
             label: "약관에 동의합니다.",
           },
         },
@@ -40,7 +34,7 @@ export default {
             "개인정보수집및이용개인정보수집및이용개인정보수집및이용개인정보수집및이용개인정보수집및이용개인정보수집및이용" +
             "개인정보수집및이용개인정보수집및이용개인정보수집및이용",
           checkBoxInfo: {
-            id: "checkBox" + this.id,
+            id: "checkBox2",
             label: "약관에 동의합니다.",
           },
         },
@@ -51,29 +45,12 @@ export default {
 </script>
 
 <template>
-  <v-app id="inspire">
-    <custom-header />
-    <v-main class="grey lighten-3">
-      <v-container>
-        <v-row>
-          <left-nav-bar />
-
-          <v-col cols="14" sm="8">
-            <v-sheet min-height="70vh" rounded="lg">
-              <div
-                :key="article.id"
-                :id="article.id"
-                v-for="article in articles"
-              >
-                <service-terms-box :article="article"></service-terms-box>
-              </div>
-            </v-sheet>
-          </v-col>
-          <right-nav-bar />
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+  <v-sheet min-height="70vh" rounded="lg">
+    <h1>대충 약관이 들어간다는 내용.</h1>
+    <div :key="article.id" :id="article.id" v-for="article in articles">
+      <service-terms-box :article="article"></service-terms-box>
+    </div>
+  </v-sheet>
 </template>
 
 <style scoped lang="scss">

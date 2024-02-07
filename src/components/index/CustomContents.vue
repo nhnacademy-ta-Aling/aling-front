@@ -1,7 +1,7 @@
 <template>
-  <v-col cols="14" sm="8">
-    <v-sheet min-height="70vh" rounded="lg"> </v-sheet>
-  </v-col>
+  <v-sheet min-height="70vh" rounded="lg">
+    <h1>메인 게시글이 들어갈 예정인 페이지</h1>
+  </v-sheet>
 </template>
 
 <script>
