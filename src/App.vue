@@ -1,11 +1,16 @@
 <template>
-  <router-view />
+  <v-app>
+    <custom-header />
+    <router-view />
+  </v-app>
 </template>
 
 <script>
+import CustomHeader from "@/components/index/header/CustomHeader.vue";
+
 export default {
   name: "index-view",
-
+  components: { CustomHeader },
   data: () => ({
     //
   }),
@@ -13,10 +18,6 @@ export default {
 </script>
 
 <style>
-.v-application {
-  font-family: "NanumBarunGothic", sans-serif !important;
-}
-
 @font-face {
   font-family: "NanumBarunGothic";
   src: url("assets/fonts/NanumGothic.ttf") format("truetype");
