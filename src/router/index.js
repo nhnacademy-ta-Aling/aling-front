@@ -1,9 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import IndexView from "../views/IndexView.vue";
-import CompanyUserRegister from "@/components/user/company/CompanyUserRegister.vue";
-import CheckTerms from "@/components/user/signup/terms/CheckTerms.vue";
-import BandMain from "@/components/band/BandMain.vue";
+import IndexView from "../components/index/IndexView.vue";
+import CompanyUserRegister from "@/pages/user/company/CompanyUserRegister.vue";
+import CheckTerms from "@/pages/user/signup/terms/CheckTerms.vue";
+import BandMain from "@/pages/band/BandMain.vue";
 
 Vue.use(VueRouter);
 

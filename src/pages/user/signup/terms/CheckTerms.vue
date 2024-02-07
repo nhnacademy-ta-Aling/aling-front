@@ -1,8 +1,8 @@
 <script>
-import ServiceTermsBox from "@/components/user/signup/terms/ServiceTermsBox.vue";
+import ServiceTermsBox from "@/pages/user/signup/terms/ServiceTermsBox.vue";
 import LeftNavBar from "@/components/index/LeftNavBar.vue";
 import RightNavBar from "@/components/index/RightNavBar.vue";
-import CustomHeader from "@/components/index/CustomHeader.vue";
+import CustomHeader from "@/components/index/header/CustomHeader.vue";
 
 export default {
   name: "checkTerms",
