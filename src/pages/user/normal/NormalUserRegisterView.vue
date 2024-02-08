@@ -2,19 +2,43 @@
   <div class="normal">
     <v-row>
       <v-col>
-        <h1 style="text-align: center">일반 회원가입</h1>
+        <h1 style="text-align: center; margin-top: 20px; margin-bottom: 5px">
+          일반 회원가입
+        </h1>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <v-form ref="form">
-          <v-text-field
-            prepend-inner-icon="mdi-email"
-            label="아이디"
-            v-model="email"
-            :rules="emailRules"
-            aria-required="true"
-          />
+        <v-form ref="form" action="/" v-on:submit="signup">
+          <div>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  prepend-inner-icon="mdi-email"
+                  label="아이디"
+                  v-model="email"
+                  :rules="emailRules"
+                  aria-required="true"
+                ></v-text-field>
+              </v-col>
+              <v-col
+                cols="auto"
+                style="margin-top: 25px; margin-right: 12px; padding: 0"
+              >
+                <v-btn
+                  depressed
+                  @click="emailCheck"
+                  style="
+                    background: white;
+                    color: #3d6bff;
+                    border-color: #3d6bff;
+                    border-style: solid;
+                  "
+                  >이메일 인증</v-btn
+                >
+              </v-col>
+            </v-row>
+          </div>
           <v-text-field
             prepend-inner-icon="mdi-lock"
             label="비밀번호"
@@ -32,13 +56,41 @@
             aria-required="true"
           />
           <v-text-field
-              prepend-inner-icon="mdi-account"
-              label="이름"
-              type="name"
-              v-model="name"
-              :rules="nameRules"
-              aria-required="true"
+            prepend-inner-icon="mdi-account"
+            label="이름"
+            v-model="name"
+            :rules="nameRules"
+            aria-required="true"
           />
+          <v-text-field
+            prepend-inner-icon="mdi-phone"
+            label="연락처"
+            v-model="phoneNo"
+            :rules="phoneNoRules"
+            aria-required="true"
+          />
+          <v-text-field
+            prepend-inner-icon="mdi-cake"
+            label="생일"
+            type="date"
+            v-model="birth"
+            :rules="birthRules"
+            aria-required="true"
+          />
+          <p style="text-align: center">구직여부</p>
+          <v-radio-group aria-required="true" v-model="selected">
+            <v-radio label="구직중이에요!" value="1" />
+            <v-radio label="이직제안 받아볼래요." value="2" />
+            <v-radio label="관심 없어요." value="3" />
+          </v-radio-group>
+          <v-btn
+            depressed
+            width="100%"
+            style="background: #3d6bff; color: white"
+            type="submit"
+          >
+            회원가입
+          </v-btn>
         </v-form>
       </v-col>
     </v-row>
@@ -46,6 +98,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data: () => ({
     email: "",
@@ -73,10 +127,7 @@ export default {
       (v) => /([A-Z])/.test(v) || "대문자를 포함해야 합니다.",
     ],
     passwordCheck: "",
-    passwordCheckRules: [
-      (v) => !!v || "비밀번호를 재입력해 체크해주세요.",
-      (v) => this.password === v || "비밀번호가 일치하지 않습니다.",
-    ],
+    passwordCheckRules: [(v) => !!v || "비밀번호를 재입력해 체크해주세요."],
     name: "",
     nameRules: [
       (v) => !!v || "이름을 입력해주세요.",
@@ -84,16 +135,47 @@ export default {
         (v.length >= 1 && v.length <= 50) ||
         "이름은 1자 이상, 50자 이하로 작성해주세요.",
     ],
+    phoneNo: "",
+    phoneNoRules: [
+      (v) => !!v || "연락처를 입력해주세요.",
+      (v) =>
+        (v.length >= 9 && v.length <= 11) ||
+        "연락처는 9자 이상, 11자 이하로 작성해주세요.",
+      (v) => /^[0-9]/.test(v) || "-를 뺀 전화번호를 적어주세요.",
+    ],
+    birth: "",
+    birthRules: [(v) => !!v || "생일을 입력해주세요."],
   }),
+  methods: {
+    signup() {
+      const params = {
+        id: this.email,
+        password: this.password,
+        name: this.name,
+        wantJobTypeNo: this.selected,
+        phoneNo: this.phoneNo,
+        birth: this.birth,
+      };
+      axios
+        .post("http://127.0.0.1:9020/api/v1/normals", params, {})
+        .then((res) => {
+          alert("성공", res);
+        })
+        .catch((res) => {
+          alert("실패", res);
+        });
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .normal {
   border-radius: 15px;
-  padding: 20px;
+  padding: 25px;
   margin: auto;
-  width: 600px;
+  width: auto;
+  max-width: 600px;
   background: white;
 }
 </style>
