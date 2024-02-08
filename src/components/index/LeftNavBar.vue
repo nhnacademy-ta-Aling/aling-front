@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import BandCreateModal from "@/components/band/BandCreateModal.vue";
+import BandCreateModal from "@/pages/band/BandCreateModal.vue";
 
 export default {
   name: "left-nav-bar",

@@ -1,16 +1,14 @@
 <script>
-import RightNavBar from "@/components/RightNavBar.vue";
-import LeftNavBar from "@/components/LeftNavBar.vue";
-import CustomHeader from "@/components/CustomHeader.vue";
+import RightNavBar from "@/components/index/RightNavBar.vue";
+import LeftNavBar from "@/components/index/LeftNavBar.vue";
 
 export default {
-  components: { CustomHeader, LeftNavBar, RightNavBar },
+  components: { LeftNavBar, RightNavBar },
 };
 </script>
 
 <template>
   <v-app id="inspire">
-    <custom-header />
     <v-main class="grey lighten-3">
       <v-container>
         <v-row>
