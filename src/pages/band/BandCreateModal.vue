@@ -23,7 +23,8 @@ export default {
       exposurePost: true,
       editorOptions: {
         minHeight: "100px",
-        toolbarItems: [["bold", "italic", "strike"], ["scrollSync"]],
+        hideModeSwitch: true,
+        toolbarItems: [["bold", "italic", "strike"]],
       },
       bandDescription: "",
 
@@ -168,6 +169,7 @@ export default {
                   <v-img
                     alt="no image"
                     src="../../assets/band-no-image.png"
+                    initialEditType="wysiwyg"
                     class="change-cursor"
                     @click="uploadImage"
                   ></v-img>
