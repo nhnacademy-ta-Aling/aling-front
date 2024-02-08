@@ -4,6 +4,9 @@ import IndexView from "../components/index/IndexView.vue";
 import CompanyUserRegister from "@/pages/user/company/CompanyUserRegister.vue";
 import CheckTerms from "@/pages/user/signup/terms/CheckTerms.vue";
 import BandMain from "@/pages/band/BandMain.vue";
+import AdminView from "@/components/index/AdminView.vue";
+import IndexCustomView from "@/components/index/IndexCustomView.vue";
+import CustomContents from "@/components/index/CustomContents.vue";
 
 Vue.use(VueRouter);
 
@@ -12,21 +15,42 @@ const routes = [
     path: "/",
     name: "index-view",
     component: IndexView,
+    children: [
+      {
+        path: "",
+        component: IndexCustomView,
+        children: [
+          {
+            path: "",
+            component: CustomContents,
+          },
+        ],
+      },
+      {
+        path: "/group",
+        component: BandMain,
+        meta: {
+          title: "Aling - 그룹",
+        },
+      },
+      {
+        path: "/join",
+        name: "join",
+        component: CheckTerms,
+        meta: {
+          title: "Aling - 회원가입",
+        },
+        child: {
+          components: CompanyUserRegister,
+        },
+      },
+    ],
   },
   {
-    path: "/group",
-    name: "group-view",
-    component: BandMain,
-  },
-  {
-    path: "/join",
-    name: "join",
-    component: CheckTerms,
+    path: "/admin",
+    component: AdminView,
     meta: {
-      title: "Aling - 회원가입",
-    },
-    child: {
-      components: CompanyUserRegister,
+      title: "Aling - Admin",
     },
   },
 ];

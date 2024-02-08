@@ -1,5 +1,5 @@
 <template>
-  <v-col cols="12" sm="2">
+  <v-col cols="3">
     <v-sheet rounded="lg" min-height="300">
       <v-container>
         <v-btn @click="openModal" color="primary">그룹 생성</v-btn>

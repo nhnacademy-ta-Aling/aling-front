@@ -28,40 +28,40 @@
         </v-btn>
         <v-tabs>
           <v-tab key="home">
-            <a :href="'/'">
+            <router-link to="/">
               <img
                 class="img-logo-route"
                 :src="require('@/assets/icons/001-home.svg')"
                 alt="home"
               />
-            </a>
+            </router-link>
           </v-tab>
           <v-tab key="recruit">
-            <a :href="'#'">
+            <router-link to="#">
               <img
                 class="img-logo-route"
                 :src="require('@/assets/icons/002-recruit.svg')"
                 alt="recruit"
               />
-            </a>
+            </router-link>
           </v-tab>
           <v-tab key="group">
-            <a :href="'/group'">
+            <router-link to="/group">
               <img
                 class="img-logo-route"
                 :src="require('@/assets/icons/003-group.svg')"
                 alt="group"
               />
-            </a>
+            </router-link>
           </v-tab>
           <v-tab key="notify">
-            <a :href="'#'">
+            <router-link to="#">
               <img
                 class="img-logo-route"
                 :src="require('@/assets/icons/004-notice.svg')"
                 alt="notice"
               />
-            </a>
+            </router-link>
           </v-tab>
         </v-tabs>
       </v-toolbar-items>
