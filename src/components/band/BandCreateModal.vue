@@ -1,5 +1,11 @@
 <script>
+import { Editor } from "@toast-ui/vue-editor";
+import "@toast-ui/editor/dist/toastui-editor.css";
+
 export default {
+  components: {
+    Editor,
+  },
   props: {
     value: {
       type: Boolean,
@@ -8,16 +14,29 @@ export default {
   },
   data() {
     return {
+      avatarSize: 100,
       bandName: "",
       bandNameSuccess: false,
       bandNameMessage: "",
 
       immediateJoin: true,
       exposurePost: true,
+      editorOptions: {
+        minHeight: "100px",
+        toolbarItems: [["bold", "italic", "strike"], ["scrollSync"]],
+      },
       bandDescription: "",
 
       validMessage: "",
     };
+  },
+  mounted() {
+    window.addEventListener("resize", this.updateAvatarSize);
+    // 컴포넌트가 처음 마운트 될 때 avatarSize를 설정
+    this.updateAvatarSize();
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.updateAvatarSize);
   },
   computed: {
     checkBtn() {
@@ -73,7 +92,22 @@ export default {
           alert("server error!");
         });
     },
+    updateAvatarSize() {
+      const width = window.innerWidth;
+      if (width < 400) {
+        this.avatarSize = 80;
+      } else if (width < 600) {
+        this.avatarSize = 120;
+      } else {
+        this.avatarSize = 150;
+      }
+    },
     uploadImage() {},
+    getEditorInput() {
+      this.bandDescription = this.$refs.tuiEditor.invoke("getHTML");
+      console.log(this.bandDescription);
+      this.rewrite();
+    },
     createGroup() {
       const data = {
         bandName: this.bandName,
@@ -91,8 +125,8 @@ export default {
         this.validMessage = "중복 검사를 해주세요.";
         return;
       }
-      if (this.bandDescription.trim() === "") {
-        this.validMessage = "그룹 소개글을 입력해주세요.";
+      if (this.bandDescription.length >= 300) {
+        this.validMessage = "그룹 소개글이 너무 깁니다.";
         return;
       }
 
@@ -117,7 +151,7 @@ export default {
 </script>
 
 <template>
-  <v-responsive height="300px">
+  <v-responsive max-height="300px">
     <!-- Vuetify Modal -->
     <v-dialog :value="bandModal" @input="bandModal = $event" max-width="600">
       <v-card>
@@ -129,17 +163,17 @@ export default {
         <v-card-text>
           <v-form>
             <v-row>
-              <v-col cols="3">
-                <v-avatar size="120">
+              <v-col cols="4">
+                <v-avatar :size="avatarSize">
                   <v-img
-                    alt="aa"
+                    alt="no image"
                     src="../../assets/band-no-image.png"
                     class="change-cursor"
                     @click="uploadImage"
                   ></v-img>
                 </v-avatar>
               </v-col>
-              <v-col cols="9">
+              <v-col cols="8">
                 <label class="custom-label custom-inline">그룹명</label>
                 <v-text-field
                   solo
@@ -189,14 +223,16 @@ export default {
             <br />
 
             <label class="custom-label">그룹 소개글</label>
-            <v-textarea
-              solo
-              v-model="bandDescription"
-              placeholder="Band Description"
-              no-resize
-              maxlength="1000"
-              @input="rewrite"
-            ></v-textarea>
+            <Editor
+              ref="tuiEditor"
+              :options="editorOptions"
+              height="200px"
+              initialEditType="wysiwyg"
+              previewStyle="vertical"
+              @change="getEditorInput"
+            >
+            </Editor>
+
             <v-messages
               :value="[validMessage]"
               class="red--text"
@@ -227,7 +263,7 @@ export default {
 }
 
 .custom-inline {
-  margin-right: 5%;
+  margin-right: 2%;
   display: inline-block;
 }
 </style>
