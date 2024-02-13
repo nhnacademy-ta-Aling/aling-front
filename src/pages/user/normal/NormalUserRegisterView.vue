@@ -9,7 +9,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-form ref="form" action="/" v-on:submit="signup">
+        <v-form @submit.prevent="signup">
           <div>
             <v-row>
               <v-col>
@@ -78,10 +78,10 @@
             aria-required="true"
           />
           <p style="text-align: center">구직여부</p>
-          <v-radio-group aria-required="true" v-model="selected">
-            <v-radio label="구직중이에요!" value="1" />
-            <v-radio label="이직제안 받아볼래요." value="2" />
-            <v-radio label="관심 없어요." value="3" />
+          <v-radio-group aria-required="true" v-model="wantJobTypeNo">
+            <v-radio label="구직중이에요!" :value="1" />
+            <v-radio label="이직제안 받아볼래요." :value="2" />
+            <v-radio label="관심 없어요." :value="3" />
           </v-radio-group>
           <v-btn
             depressed
@@ -98,8 +98,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   data: () => ({
     email: "",
@@ -109,7 +107,7 @@ export default {
         (v.length >= 3 && v.length <= 100) ||
         "이메일은 3자 이상, 100자 이하로 입력해주세요.",
       (v) =>
-        /^[a-zA-Z0-9.!#$%&\\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(
+        /^[-0-9A-Za-z!#$%&'*+/=?^_`{|}~.]+@[-0-9A-Za-z!#$%&'*+/=?^_`{|}~]+[.]{1}[0-9A-Za-z]/.test(
           v
         ) || "이메일 형식으로 작성해주세요.",
     ],
@@ -145,24 +143,32 @@ export default {
     ],
     birth: "",
     birthRules: [(v) => !!v || "생일을 입력해주세요."],
+    wantJobTypeNo: 1,
   }),
   methods: {
+    emailCheck() {},
     signup() {
       const params = {
         id: this.email,
         password: this.password,
         name: this.name,
-        wantJobTypeNo: this.selected,
+        wantJobTypeNo: this.wantJobTypeNo,
         phoneNo: this.phoneNo,
-        birth: this.birth,
+        birth: this.birth.replaceAll("-", ""),
       };
-      axios
-        .post("http://127.0.0.1:9020/api/v1/normals", params, {})
+      this.$axios
+        .post("/user/api/v1/normals", JSON.stringify(params), {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
         .then((res) => {
-          alert("성공", res);
+          console.log(res);
+          alert("성공");
         })
         .catch((res) => {
-          alert("실패", res);
+          console.log(res);
+          alert("실패");
         });
     },
   },
