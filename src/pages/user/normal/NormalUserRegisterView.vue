@@ -9,7 +9,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-form @submit.prevent="signup">
+        <v-form ref="form" @submit.prevent="signup">
           <div>
             <v-row>
               <v-col>
@@ -19,6 +19,7 @@
                   v-model="email"
                   :rules="emailRules"
                   aria-required="true"
+                  :disabled="emailSuccess"
                 ></v-text-field>
               </v-col>
               <v-col
@@ -34,10 +35,16 @@
                     border-color: #3d6bff;
                     border-style: solid;
                   "
+                  :disabled="emailSuccess"
                   >이메일 인증</v-btn
                 >
               </v-col>
             </v-row>
+            <auth-number-check
+              v-if="authNumberCheck"
+              v-on:successEvent="emailCheckSuccess"
+              :disabled="emailSuccess"
+            />
           </div>
           <v-text-field
             prepend-inner-icon="mdi-lock"
@@ -98,8 +105,12 @@
 </template>
 
 <script>
+import AuthNumberCheck from "@/components/user/AuthNumberCheck.vue";
+
 export default {
+  components: { AuthNumberCheck },
   data: () => ({
+    authNumberCheck: false,
     email: "",
     emailRules: [
       (v) => !!v || "아이디(이메일)을 입력해주세요.",
@@ -111,6 +122,7 @@ export default {
           v
         ) || "이메일 형식으로 작성해주세요.",
     ],
+    emailSuccess: false,
     password: "",
     passwordRules: [
       (v) => !!v || "비밀번호를 입력해주세요.",
@@ -146,8 +158,30 @@ export default {
     wantJobTypeNo: 1,
   }),
   methods: {
-    emailCheck() {},
+    emailCheck() {
+      this.$axios
+        .get("/user/api/v1/email-check?email=" + this.email)
+        .then(() => {
+          this.authNumberCheck = true;
+        })
+        .catch(() => {
+          alert("인증번호 발신 실패했습니다. 다시 요청해주세요.");
+        });
+    },
+    emailCheckSuccess() {
+      this.emailSuccess = true;
+    },
     signup() {
+      if (!this.$refs.form.validate()) {
+        alert("형식에 맞춰 작성해주십시오.");
+        return;
+      }
+      if (this.password !== this.passwordCheck) {
+        alert("비밀번호가 일치하지 않습니다. 다시 작성해주십시오.");
+        this.password = "";
+        this.passwordCheck = "";
+        return;
+      }
       const params = {
         id: this.email,
         password: this.password,
@@ -162,13 +196,11 @@ export default {
             "Content-Type": "application/json",
           },
         })
-        .then((res) => {
-          console.log(res);
-          alert("성공");
+        .then(() => {
+          window.location = "/";
         })
-        .catch((res) => {
-          console.log(res);
-          alert("실패");
+        .catch(() => {
+          alert("회원가입 실패");
         });
     },
   },
