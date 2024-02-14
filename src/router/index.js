@@ -1,17 +1,15 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import IndexView from "../components/index/IndexView.vue";
-import CompanyUserRegister from "@/pages/user/company/CompanyUserRegister.vue";
-import CheckTerms from "@/pages/user/signup/terms/CheckTerms.vue";
-import BandMain from "@/pages/band/BandMain.vue";
-import AdminView from "@/components/index/AdminView.vue";
-import IndexCustomView from "@/components/index/IndexCustomView.vue";
-import CustomContents from "@/components/index/CustomContents.vue";
+import CompanyUserRegister from "@/pages/user/company/CompanyUserRegisterView.vue";
 import NormalUserRegister from "@/pages/user/normal/NormalUserRegisterView.vue";
+import CustomContents from "@/components/index/CustomContents.vue";
 import IndexView from "@/pages/index/IndexView.vue";
-import IndexMainView from "@/pages/index/IndexMainView.vue";
 import UserRegister from "@/components/user/UserRegister.vue";
 import AdminView from "@/pages/index/AdminView.vue";
+import BandMainView from "@/pages/band/BandMainView.vue";
+import BandList from "@/pages/band/BandList.vue";
+import BandDetail from "@/pages/band/BandDetail.vue";
+import IndexMainView from "@/pages/index/IndexMainView.vue";
 
 Vue.use(VueRouter);
 
@@ -23,7 +21,7 @@ const routes = [
     children: [
       {
         path: "",
-        component: IndexCustomView,
+        component: IndexMainView,
         children: [
           {
             path: "",
