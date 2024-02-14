@@ -46,7 +46,7 @@
             </router-link>
           </v-tab>
           <v-tab key="group">
-            <router-link to="/group">
+            <router-link to="/bands">
               <img
                 class="img-logo-route"
                 :src="require('@/assets/icons/003-group.svg')"
@@ -98,7 +98,7 @@
             <v-list-item-title>채용공고</v-list-item-title>
           </v-list-item>
 
-          <v-list-item :href="'/group'">
+          <v-list-item :href="'/bands'">
             <v-list-item-icon>
               <v-icon>groups</v-icon>
             </v-list-item-icon>

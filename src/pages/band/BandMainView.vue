@@ -1,9 +1,10 @@
 <script>
 import { defineComponent } from "vue";
 import LeftNavBar from "@/components/index/LeftNavBar.vue";
+import RightNavBar from "@/components/index/RightNavBar.vue";
 
 export default defineComponent({
-  components: { LeftNavBar },
+  components: { RightNavBar, LeftNavBar },
 });
 </script>
 
@@ -11,10 +12,9 @@ export default defineComponent({
   <v-row>
     <left-nav-bar class="hidden-sm-and-down" />
     <v-col>
-      <v-sheet min-height="70vh" rounded="lg">
-        <h1>This is Group page</h1>
-      </v-sheet>
+      <router-view />
     </v-col>
+    <right-nav-bar class="hidden-sm-and-down" />
   </v-row>
 </template>
 
