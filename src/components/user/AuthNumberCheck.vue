@@ -48,7 +48,7 @@ export default {
         })
         .catch(() => {
           window.location.reload();
-          alert("잘못된 인증번호입니다.");
+          alert("인증에 실패하였습니다.");
         });
     },
   },

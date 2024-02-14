@@ -43,7 +43,6 @@
             <auth-number-check
               v-if="authNumberCheck"
               v-on:successEvent="emailCheckSuccess"
-              :disabled="emailSuccess"
             />
           </div>
           <v-text-field
@@ -111,6 +110,7 @@ export default {
   components: { AuthNumberCheck },
   data: () => ({
     authNumberCheck: false,
+    isValidEmail: false,
     email: "",
     emailRules: [
       (v) => !!v || "아이디(이메일)을 입력해주세요.",
@@ -163,6 +163,7 @@ export default {
         .get("/user/api/v1/email-check?email=" + this.email)
         .then(() => {
           this.authNumberCheck = true;
+          alert("인증번호가 발신되었습니다. 인증번호는 3분 뒤 만료됩니다.");
         })
         .catch(() => {
           alert("인증번호 발신 실패했습니다. 다시 요청해주세요.");
@@ -170,10 +171,16 @@ export default {
     },
     emailCheckSuccess() {
       this.emailSuccess = true;
+      this.authNumberCheck = false;
+      this.isValidEmail = true;
     },
     signup() {
       if (!this.$refs.form.validate()) {
         alert("형식에 맞춰 작성해주십시오.");
+        return;
+      }
+      if (!this.isValidEmail) {
+        alert("이메일 인증을 진행해주세요.");
         return;
       }
       if (this.password !== this.passwordCheck) {
