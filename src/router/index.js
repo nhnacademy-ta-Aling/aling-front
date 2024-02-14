@@ -3,7 +3,9 @@ import VueRouter from "vue-router";
 import IndexView from "../components/index/IndexView.vue";
 import CompanyUserRegister from "@/pages/user/company/CompanyUserRegister.vue";
 import CheckTerms from "@/pages/user/signup/terms/CheckTerms.vue";
-import BandMain from "@/pages/band/BandMain.vue";
+import BandMainView from "@/pages/band/BandMainView.vue";
+import BandList from "@/pages/band/BandList.vue";
+import BandDetail from "@/pages/band/BandDetail.vue";
 import AdminView from "@/components/index/AdminView.vue";
 import IndexCustomView from "@/components/index/IndexCustomView.vue";
 import CustomContents from "@/components/index/CustomContents.vue";
@@ -27,11 +29,21 @@ const routes = [
         ],
       },
       {
-        path: "/group",
-        component: BandMain,
+        path: "/bands",
+        component: BandMainView,
         meta: {
           title: "Aling - 그룹",
         },
+        children: [
+          {
+            path: "",
+            component: BandList,
+          },
+          {
+            path: ":bandName",
+            component: BandDetail,
+          },
+        ],
       },
       {
         path: "/join",
