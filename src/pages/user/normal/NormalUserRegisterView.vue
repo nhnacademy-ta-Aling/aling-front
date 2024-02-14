@@ -43,6 +43,7 @@
             <auth-number-check
               v-if="authNumberCheck"
               v-on:successEvent="emailCheckSuccess"
+              v-bind:email="email"
             />
           </div>
           <v-text-field

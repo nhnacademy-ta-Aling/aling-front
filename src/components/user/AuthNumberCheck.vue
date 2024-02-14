@@ -4,7 +4,7 @@
       <v-col style="padding-top: 0">
         <v-text-field
           label="인증번호를 입력해주세요."
-          v-model="authNum"
+          v-model="authNumber"
         ></v-text-field>
       </v-col>
       <v-col
@@ -28,13 +28,15 @@
 </template>
 <script>
 export default {
+  props: ["email"],
   data: () => ({
-    authNum: "",
+    authNumber: "",
   }),
   methods: {
     authNumberChecking() {
       const params = {
-        authNum: this.authNum,
+        email: this.email,
+        authNumber: this.authNumber,
       };
       this.$axios
         .post("/user/api/v1/email-check", params, {
