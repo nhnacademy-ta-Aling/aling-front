@@ -1,5 +1,10 @@
 <script>
+import BandPostModal from "@/pages/band/BandPostModal.vue";
+
 export default {
+  components: {
+    BandPostModal,
+  },
   data() {
     return {
       loading: false,
@@ -19,7 +24,6 @@ export default {
         .then((response) => {
           this.loading = false;
           this.bandDetail = response.data;
-          console.log(this.bandDetail);
         })
         .catch((error) => {
           this.error = error.toString();
@@ -53,6 +57,19 @@ export default {
       </v-row>
     </v-card>
     <!--    그룹 게시물 리스트-->
+
+    <v-card class="band-post-input">
+      <v-card-text>
+        <v-row>
+          <v-col cols="1" class="band-post-icon">
+            <v-icon large color="light-blue darken-2">present_to_all</v-icon>
+          </v-col>
+          <v-col cols="11" class="band-post-btn">
+            <band-post-modal :bandDetail="bandDetail"></band-post-modal>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
   </v-sheet>
 </template>
 
@@ -61,5 +78,21 @@ export default {
   top: 40%;
   left: 55%;
   margin: -25px 0 0 -15px;
+}
+
+.band-post-input {
+  margin: 5% 3% 3%;
+}
+
+.band-post-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.band-post-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
