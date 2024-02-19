@@ -105,8 +105,7 @@ export default {
     },
     uploadImage() {},
     getEditorInput() {
-      this.bandDescription = this.$refs.tuiEditor.invoke("getHTML");
-      console.log(this.bandDescription);
+      this.bandDescription = this.$refs.tuiEditor.invoke("getMarkdown");
       this.rewrite();
     },
     createGroup() {

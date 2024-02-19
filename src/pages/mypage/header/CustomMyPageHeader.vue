@@ -20,48 +20,22 @@
       </v-btn>
       <v-spacer class="hidden-sm-and-down" />
       <v-toolbar-items class="hidden-sm-and-down">
-        <basic-input
-          type="text"
-          placeholder="Search..."
-          style="width: 13rem; height: 48px"
-        />
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
         <v-tabs>
-          <v-tab key="home">
-            <router-link to="/">
+          <v-tab key="my-info">
+            <router-link to="/my-page">
               <img
                 class="img-logo-route"
-                :src="require('@/assets/icons/001-home.svg')"
-                alt="home"
-              />
-            </router-link>
-          </v-tab>
-          <v-tab key="recruit">
-            <router-link to="#">
-              <img
-                class="img-logo-route"
-                :src="require('@/assets/icons/002-recruit.svg')"
-                alt="recruit"
+                :src="require('@/assets/icons/006-my-info.svg')"
+                alt="group"
               />
             </router-link>
           </v-tab>
           <v-tab key="band">
-            <router-link to="/bands">
+            <router-link to="/my-page/bands">
               <img
                 class="img-logo-route"
-                :src="require('@/assets/icons/003-group.svg')"
+                :src="require('@/assets/icons/005-group-management.svg')"
                 alt="band"
-              />
-            </router-link>
-          </v-tab>
-          <v-tab key="notify">
-            <router-link to="#">
-              <img
-                class="img-logo-route"
-                :src="require('@/assets/icons/004-notice.svg')"
-                alt="notice"
               />
             </router-link>
           </v-tab>
@@ -77,37 +51,27 @@
           <v-list-item :href="'/my-page'">
             <v-list-item-title>프로필</v-list-item-title>
           </v-list-item>
-          <v-list-item :href="'/my-page/bands'">
-            <v-list-item-title>그룹 관리</v-list-item-title>
-          </v-list-item>
-          <v-list-item v-for="n in 4" :key="n" @click="() => {}">
-            <v-list-item-title>Option {{ n }}</v-list-item-title>
-          </v-list-item>
         </v-list>
       </v-menu>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list nav dense>
         <v-list-item-group active-class="text--accent-4" color="#3D6BFF">
-          <v-list-item :href="'/'">
+          <v-list-item :href="'/my-page'">
             <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
+              <v-icon>person</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
+            <v-list-item-title>내 정보</v-list-item-title>
           </v-list-item>
-
-          <v-list-item :href="'#'">
-            <v-list-item-icon>
-              <v-icon>handshake</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>채용공고</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item :href="'/bands'">
+        </v-list-item-group>
+      </v-list>
+      <v-list nav dense>
+        <v-list-item-group>
+          <v-list-item :href="'/my-page/bands'">
             <v-list-item-icon>
               <v-icon>groups</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>그룹</v-list-item-title>
+            <v-list-item-title>그룹 관리</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -116,16 +80,11 @@
 </template>
 
 <script>
-import BasicInput from "@/components/commons/BasicInput.vue";
-
 export default {
-  name: "custom-header",
+  name: "custom-my-page-header",
   data: () => ({
     drawer: false,
   }),
-  components: {
-    BasicInput: BasicInput,
-  },
 };
 </script>
 

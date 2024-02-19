@@ -28,11 +28,9 @@ export default {
   computed: {
     viewBandInfo() {
       return function (bandInfo) {
-        let leng = bandInfo.toString().substring(0, window.innerWidth / 20);
+        let leng = bandInfo.substring(0, window.innerWidth / 25).length;
         if (leng < bandInfo.length)
-          return (
-            bandInfo.toString().substring(0, window.innerWidth / 10) + " ..."
-          );
+          return bandInfo.substring(0, window.innerWidth / 25) + " ...";
         else return bandInfo;
       };
     },
@@ -54,8 +52,8 @@ export default {
             <v-img
               class="image-container"
               alt="no image"
-              min-width="40px"
-              max-width="70px"
+              min-width="60px"
+              max-width="100px"
               src="../../assets/band-no-image.png"
             ></v-img>
           </v-col>
@@ -63,7 +61,17 @@ export default {
             <v-card-title class="v-card-title">
               {{ band.name }}
             </v-card-title>
-            <v-card-subtitle>{{ viewBandInfo(band.info) }}</v-card-subtitle>
+            <v-card-subtitle class="blurry-font more-dense">
+              <p class="custom-inline">즉시 가입 여부</p>
+              <p class="custom-inline" v-if="band.isEnter">O</p>
+              <p class="custom-inline" v-else>X</p>
+              <p class="custom-inline">게시글 공개 여부</p>
+              <p class="custom-inline" v-if="band.isViewContent">O</p>
+              <p class="custom-inline" v-else>X</p>
+            </v-card-subtitle>
+            <v-card-subtitle class="custom-bandInfo-subtitle"
+              >{{ viewBandInfo(band.info) }}
+            </v-card-subtitle>
           </v-col>
         </v-row>
       </v-card>
@@ -84,9 +92,11 @@ export default {
 }
 
 .image-container {
-  top: 40%;
-  left: 55%;
-  margin: -25px 0 0 -25px;
+  border-radius: 10px;
+  border: 2px solid grey;
+  top: 1em;
+  margin-left: 35%;
+  align-items: center;
 }
 
 .v-card-title {
@@ -96,5 +106,29 @@ export default {
 .remove-line {
   text-decoration: none;
   color: inherit;
+}
+
+.blurry-font {
+  font-size: 13px;
+  opacity: 0.5;
+}
+
+.custom-inline {
+  margin-right: 2%;
+  display: inline-block;
+}
+
+.more-dense {
+  margin-bottom: 0.1em;
+  padding-bottom: 0.1em;
+}
+
+.custom-bandInfo-subtitle {
+  background-color: #f0f0f0;
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
+  padding: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 </style>
