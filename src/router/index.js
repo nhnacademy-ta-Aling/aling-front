@@ -9,6 +9,10 @@ import BandDetail from "@/pages/band/BandDetail.vue";
 import AdminView from "@/components/index/AdminView.vue";
 import IndexCustomView from "@/components/index/IndexCustomView.vue";
 import CustomContents from "@/components/index/CustomContents.vue";
+import MyPageIndexView from "@/pages/mypage/MyPageIndexView.vue";
+import MyPageBandView from "@/pages/mypage/MyPageBandView.vue";
+import MyPageBandCreation from "@/pages/mypage/MyPageBandCreation.vue";
+import MyPageBandList from "@/pages/mypage/MyPageBandList.vue";
 
 Vue.use(VueRouter);
 
@@ -55,6 +59,30 @@ const routes = [
         child: {
           components: CompanyUserRegister,
         },
+      },
+    ],
+  },
+  {
+    path: "/my-page",
+    name: "my-page-index-view",
+    component: MyPageIndexView,
+    meta: {
+      title: "Aling - 마이페이지",
+    },
+    children: [
+      {
+        path: "bands",
+        component: MyPageBandView,
+        children: [
+          {
+            path: "",
+            component: MyPageBandList,
+          },
+          {
+            path: "new",
+            component: MyPageBandCreation,
+          },
+        ],
       },
     ],
   },
