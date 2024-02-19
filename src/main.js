@@ -18,3 +18,13 @@ new Vue({
   vuetify,
   render: (h) => h(App),
 }).$mount("#app");
+
+export const FileCategory = {
+  USER_PROFILE: 1,
+  GROUP_PROFILE: 2,
+  RESUME: 3,
+  POST_ATTACH: 4,
+  REPLY_ATTACH: 5,
+  TECH_SKILL: 6,
+  HOOKS: 7,
+};

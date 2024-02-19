@@ -1,7 +1,12 @@
 <script>
 import BandUserListModal from "@/pages/band/BandUserListModal.vue";
+import BandPostModal from "@/pages/band/BandPostModal.vue";
 
 export default {
+  components: {
+    BandPostModal,
+    BandUserListModal,
+  },
   data() {
     return {
       loading: false,
@@ -55,9 +60,6 @@ export default {
         else return bandInfo;
       };
     },
-  },
-  components: {
-    BandUserListModal,
   },
 };
 
@@ -139,6 +141,19 @@ export default {
       </v-card>
     </div>
     <!--    그룹 게시물 리스트-->
+
+    <v-card class="band-post-input">
+      <v-card-text>
+        <v-row>
+          <v-col cols="1" class="band-post-icon">
+            <v-icon large color="light-blue darken-2">present_to_all</v-icon>
+          </v-col>
+          <v-col cols="11" class="band-post-btn">
+            <band-post-modal :bandDetail="bandDetail"></band-post-modal>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
   </v-sheet>
 </template>
 
@@ -184,5 +199,21 @@ export default {
 .more-dense {
   margin-bottom: 0.1em;
   padding-bottom: 0.1em;
+}
+
+.band-post-input {
+  margin: 5% 3% 3%;
+}
+
+.band-post-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.band-post-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

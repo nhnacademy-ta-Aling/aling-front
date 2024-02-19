@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import CustomHeader from "@/components/index/header/CustomHeader.vue";
+import CustomHeader from "@/components/index/CustomHeader.vue";
 
 export default {
   name: "index-page",
