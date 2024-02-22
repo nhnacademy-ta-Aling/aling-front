@@ -1,7 +1,6 @@
 <script>
 export default {
   data: () => ({
-    msg: "Hi, Hello",
     model: "tab",
   }),
 };
