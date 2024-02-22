@@ -1,4 +1,4 @@
-<script xmlns:x="http://www.w3.org/1999/html">
+<script>
 const BandUserRole = Object.freeze({
   BAND_ROLE_CREATOR: 1,
   BAND_ROLE_ADMIN: 2,

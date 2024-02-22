@@ -1,10 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import CompanyUserRegister from "@/pages/user/company/CompanyUserRegisterView.vue";
-import NormalUserRegister from "@/pages/user/normal/NormalUserRegisterView.vue";
 import CustomContents from "@/components/index/CustomContents.vue";
 import IndexView from "@/pages/index/IndexView.vue";
-import UserRegister from "@/components/user/UserRegister.vue";
 import AdminView from "@/pages/index/AdminView.vue";
 import BandMainView from "@/pages/band/BandMainView.vue";
 import BandList from "@/pages/band/BandList.vue";
@@ -14,6 +11,11 @@ import MyPageBandView from "@/pages/mypage/MyPageBandView.vue";
 import MyPageBandCreation from "@/pages/mypage/MyPageBandCreation.vue";
 import MyPageBandList from "@/pages/mypage/MyPageBandList.vue";
 import IndexMainView from "@/pages/index/IndexMainView.vue";
+import UserRegisterSelectView from "@/pages/user/register/UserRegisterSelectView.vue";
+import NormalUserRegisterView from "@/pages/user/register/normal/NormalUserRegisterView.vue";
+import CompanyUserRegisterView from "@/pages/user/register/company/CompanyUserRegisterView.vue";
+import UserRegisterMainView from "@/pages/user/register/UserRegisterMainView.vue";
+import LoginView from "@/pages/user/login/LoginView.vue";
 
 Vue.use(VueRouter);
 
@@ -53,17 +55,21 @@ const routes = [
       {
         path: "/signup",
         name: "signup-view",
-        component: UserRegister,
+        component: UserRegisterMainView,
         children: [
+          {
+            path: "",
+            component: UserRegisterSelectView,
+          },
           {
             path: "/signup/normal",
             name: "normal-signup-view",
-            component: NormalUserRegister,
+            component: NormalUserRegisterView,
           },
           {
             path: "/signup/company",
             name: "company-signup-view",
-            component: CompanyUserRegister,
+            component: CompanyUserRegisterView,
           },
         ],
       },
@@ -92,6 +98,10 @@ const routes = [
         ],
       },
     ],
+  },
+  {
+    path: "/login",
+    component: LoginView,
   },
   {
     path: "/admin",

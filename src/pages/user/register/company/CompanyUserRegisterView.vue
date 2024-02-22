@@ -2,9 +2,9 @@
   <div class="normal">
     <v-row>
       <v-col>
-        <h1 style="text-align: center; margin-top: 20px; margin-bottom: 5px">
-          회원가입
-        </h1>
+        <h2 style="text-align: center; margin-top: 20px; margin-bottom: 5px">
+          기업 회원가입
+        </h2>
       </v-col>
     </v-row>
     <v-row>
