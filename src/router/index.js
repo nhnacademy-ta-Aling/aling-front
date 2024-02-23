@@ -52,27 +52,6 @@ const routes = [
           },
         ],
       },
-      {
-        path: "/signup",
-        name: "signup-view",
-        component: UserRegisterMainView,
-        children: [
-          {
-            path: "",
-            component: UserRegisterSelectView,
-          },
-          {
-            path: "/signup/normal",
-            name: "normal-signup-view",
-            component: NormalUserRegisterView,
-          },
-          {
-            path: "/signup/company",
-            name: "company-signup-view",
-            component: CompanyUserRegisterView,
-          },
-        ],
-      },
     ],
   },
   {
@@ -96,6 +75,27 @@ const routes = [
             component: MyPageBandCreation,
           },
         ],
+      },
+    ],
+  },
+  {
+    path: "/signup",
+    name: "signup-view",
+    component: UserRegisterMainView,
+    children: [
+      {
+        path: "",
+        component: UserRegisterSelectView,
+      },
+      {
+        path: "/signup/normal",
+        name: "normal-signup-view",
+        component: NormalUserRegisterView,
+      },
+      {
+        path: "/signup/company",
+        name: "company-signup-view",
+        component: CompanyUserRegisterView,
       },
     ],
   },
