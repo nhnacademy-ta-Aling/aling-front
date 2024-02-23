@@ -1,7 +1,20 @@
-<script setup></script>
+<script setup>
+import LoginHeader from "@/components/index/LoginHeader.vue";
+</script>
 
 <template>
-  <router-view></router-view>
+  <div>
+    <login-header></login-header>
+    <v-main class="grey lighten-3">
+      <v-container>
+        <router-view></router-view>
+      </v-container>
+    </v-main>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+router-view {
+  margin-top: 8em;
+}
+</style>

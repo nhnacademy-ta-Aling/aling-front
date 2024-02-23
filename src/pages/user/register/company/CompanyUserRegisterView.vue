@@ -1,16 +1,16 @@
 <template>
-  <div class="normal">
-    <v-row>
-      <v-col>
-        <h2 style="text-align: center; margin-top: 20px; margin-bottom: 5px">
-          기업 회원가입
-        </h2>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-form ref="form" @submit.prevent="signup">
-          <div>
+  <v-responsive>
+    <div class="normal">
+      <v-row>
+        <v-col>
+          <h2 style="text-align: center; margin-top: 20px; margin-bottom: 5px">
+            기업 회원가입
+          </h2>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-form ref="form" @submit.prevent="signup">
             <v-row>
               <v-col>
                 <v-text-field
@@ -48,67 +48,65 @@
               v-on:successEvent="emailCheckSuccess"
               v-bind:email="email"
             />
-          </div>
-          <v-text-field
-            prepend-inner-icon="mdi-lock"
-            label="비밀번호"
-            type="password"
-            v-model="password"
-            :rules="passwordRules"
-            aria-required="true"
-            :maxLength="20"
-          />
-          <v-text-field
-            prepend-inner-icon="mdi-lock-check"
-            label="비밀번호 재입력"
-            type="password"
-            v-model="passwordCheck"
-            :rules="passwordCheckRules"
-            aria-required="true"
-          />
-          <v-text-field
-            prepend-inner-icon="mdi-account"
-            label="법인명"
-            v-model="companyName"
-            :rules="companyNameRules"
-            aria-required="true"
-            :maxLength="50"
-          />
-          <v-text-field
-            prepend-inner-icon="mdi-format-list-bulleted"
-            label="업종"
-            v-model="sector"
-            :rules="sectorRules"
-            aria-required="true"
-            :maxLength="50"
-          />
-          <v-select
-            prepend-inner-icon="mdi-home-modern"
-            v-model="selectedCompanySize"
-            :rules="companySizeRules"
-            label="기업규모"
-            :items="companySizes"
-            item-text="name"
-            item-value="value"
-          ></v-select>
-          <v-text-field
-            prepend-inner-icon="mdi-clipboard-account"
-            label="대표자명"
-            v-model="name"
-            :rules="nameRules"
-            aria-required="true"
-          />
-          <v-text-field
-            prepend-inner-icon="mdi-calendar"
-            label="개업연월일"
-            v-model="openDate"
-            :rules="openDateRules"
-            aria-required="true"
-            :maxLength="10"
-            placeholder="YYYY/MM/dd"
-            oninput="javascript: this.value = this.value.replace(/[^0-9]/, '').replace(/^(\d{4})(\d{2})(\d{2})$/, `$1/$2/$3`);"
-          />
-          <div>
+            <v-text-field
+              prepend-inner-icon="mdi-lock"
+              label="비밀번호"
+              type="password"
+              v-model="password"
+              :rules="passwordRules"
+              aria-required="true"
+              :maxLength="20"
+            />
+            <v-text-field
+              prepend-inner-icon="mdi-lock-check"
+              label="비밀번호 재입력"
+              type="password"
+              v-model="passwordCheck"
+              :rules="passwordCheckRules"
+              aria-required="true"
+            />
+            <v-text-field
+              prepend-inner-icon="mdi-account"
+              label="법인명"
+              v-model="companyName"
+              :rules="companyNameRules"
+              aria-required="true"
+              :maxLength="50"
+            />
+            <v-text-field
+              prepend-inner-icon="mdi-format-list-bulleted"
+              label="업종"
+              v-model="sector"
+              :rules="sectorRules"
+              aria-required="true"
+              :maxLength="50"
+            />
+            <v-select
+              prepend-inner-icon="mdi-home-modern"
+              v-model="selectedCompanySize"
+              :rules="companySizeRules"
+              label="기업규모"
+              :items="companySizes"
+              item-text="name"
+              item-value="value"
+            ></v-select>
+            <v-text-field
+              prepend-inner-icon="mdi-clipboard-account"
+              label="대표자명"
+              v-model="name"
+              :rules="nameRules"
+              aria-required="true"
+            />
+            <v-text-field
+              prepend-inner-icon="mdi-calendar"
+              label="개업연월일"
+              v-model="openDate"
+              :rules="openDateRules"
+              aria-required="true"
+              :maxLength="10"
+              placeholder="YYYY/MM/dd"
+              oninput="javascript: this.value = this.value.replace(/[^0-9]/, '').replace(/^(\d{4})(\d{2})(\d{2})$/, `$1/$2/$3`);"
+            />
             <v-row>
               <v-col>
                 <v-text-field
@@ -144,8 +142,6 @@
                 </v-btn>
               </v-col>
             </v-row>
-          </div>
-          <div>
             <v-row>
               <v-col>
                 <v-text-field
@@ -168,8 +164,8 @@
                     height: 2.5em;
                   "
                   @click="openPostCode"
-                  >주소 검색</v-btn
-                >
+                  >주소 검색
+                </v-btn>
               </v-col>
             </v-row>
             <v-text-field
@@ -186,20 +182,20 @@
               placeholder="상세 주소"
               :maxLength="100"
             />
-          </div>
-          <input id="address" style="width: 35em" :value="inputAddress" />
-          <v-btn
-            depressed
-            width="100%"
-            style="background: #3d6bff; color: white"
-            type="submit"
-          >
-            회원가입
-          </v-btn>
-        </v-form>
-      </v-col>
-    </v-row>
-  </div>
+            <input id="address" style="width: 35em" :value="inputAddress" />
+            <v-btn
+              depressed
+              width="100%"
+              style="background: #3d6bff; color: white"
+              type="submit"
+            >
+              회원가입
+            </v-btn>
+          </v-form>
+        </v-col>
+      </v-row>
+    </div>
+  </v-responsive>
 </template>
 
 <script>
@@ -393,7 +389,7 @@ export default {
 <style scoped lang="scss">
 .normal {
   border-radius: 15px;
-  padding: 25px;
+  padding: 1.7em;
   margin: auto;
   width: auto;
   max-width: 600px;
@@ -401,14 +397,13 @@ export default {
 }
 
 .company-num-col {
-  margin-top: 25px;
-  margin-left: 12px;
+  margin-top: 2em;
   padding: 0;
 }
 
 .search-button-col {
-  margin-top: 25px;
-  margin-right: 12px;
+  margin-top: 1.5em;
+  margin-right: 0.7em;
   padding: 0;
 }
 </style>
