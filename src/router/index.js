@@ -14,6 +14,8 @@ import MyPageBandView from "@/pages/mypage/MyPageBandView.vue";
 import MyPageBandCreation from "@/pages/mypage/MyPageBandCreation.vue";
 import MyPageBandList from "@/pages/mypage/MyPageBandList.vue";
 import IndexMainView from "@/pages/index/IndexMainView.vue";
+import PostMainView from "@/pages/post/PostMainView.vue";
+import SinglePost from "@/pages/post/SinglePost.vue";
 
 Vue.use(VueRouter);
 
@@ -47,6 +49,20 @@ const routes = [
           {
             path: ":bandName",
             component: BandDetail,
+          },
+        ],
+      },
+      {
+        path: "/articles",
+        name: "post-view",
+        component: PostMainView,
+        meta: {
+          title: "Aling",
+        },
+        children: [
+          {
+            path: ":postNo",
+            component: SinglePost,
           },
         ],
       },
