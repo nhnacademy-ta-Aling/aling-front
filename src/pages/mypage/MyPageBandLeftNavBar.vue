@@ -1,18 +1,26 @@
-<script xmlns="http://www.w3.org/1999/html">
-const BandUserRole = Object.freeze({
-  BAND_ROLE_CREATOR: 1,
-  BAND_ROLE_ADMIN: 2,
-  BAND_ROLE_USER: 3,
-});
+<script>
+import { BandUserRole } from "@/main";
+
 export default {
+  computed: {
+    BandUserRole() {
+      return BandUserRole;
+    },
+  },
   data() {
     return {
-      BandUserRole,
       myBandList: null,
+      creator: "",
+      admin: "",
     };
   },
   created() {
     this.fetchData();
+    this.setChip();
+    window.addEventListener("resize", this.setChip);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.setChip);
   },
   methods: {
     fetchData() {
@@ -20,11 +28,22 @@ export default {
         .get("/user/api/v1/users/my-bands")
         .then((response) => {
           this.myBandList = response.data;
-          console.log(this.myBandList);
         })
         .catch(() => {
           alert("server error");
         });
+    },
+    setChip() {
+      this.creator = (() => {
+        if (window.innerWidth >= 1910) return "CREATOR";
+        else if (window.innerWidth >= 1300) return "C";
+        else return "";
+      })();
+      this.admin = (() => {
+        if (window.innerWidth >= 1910) return "ADMIN";
+        else if (window.innerWidth >= 1300) return "A";
+        else return "";
+      })();
     },
   },
 };
@@ -56,61 +75,90 @@ export default {
                     <v-col cols="8">
                       {{ myBand.name }}
                     </v-col>
-                    <v-col cols="4">
+                    <v-col cols="4" class="text-right">
                       <v-chip
                         v-if="
                           myBand.bandUserRoleNo ===
-                          BandUserRole.BAND_ROLE_CREATOR
+                            BandUserRole.BAND_ROLE_CREATOR && creator !== ''
                         "
+                        v-model="creator"
                         close-icon="mdi-close-outline"
                         color="blue lighten-1"
                         small
                         outlined
-                        >CREATOR
+                      >
+                        {{ creator }}
                       </v-chip>
                       <v-chip
                         v-if="
-                          myBand.bandUserRoleNo === BandUserRole.BAND_ROLE_ADMIN
+                          myBand.bandUserRoleNo ===
+                            BandUserRole.BAND_ROLE_ADMIN && admin !== ''
                         "
+                        v-model="admin"
                         close-icon="mdi-close-outline"
                         color="deep-purple lighten-1"
                         small
                         outlined
-                        >ADMIN
+                      >
+                        {{ admin }}
                       </v-chip>
                     </v-col>
                   </v-row>
                 </v-list-item-title>
               </template>
-              <v-list-item
-                v-if="myBand.bandUserRoleNo === BandUserRole.BAND_ROLE_USER"
-              >
-                <v-list-item-title>그룹 탈퇴</v-list-item-title>
-              </v-list-item>
 
-              <v-list-item
+              <router-link
                 v-if="myBand.bandUserRoleNo !== BandUserRole.BAND_ROLE_USER"
+                class="remove-line"
+                :to="{ path: '/my-page/bands/' + myBand.name }"
               >
-                <v-list-item-title>카테고리 관리</v-list-item-title>
-              </v-list-item>
-              <v-list-item
+                <v-list-item>
+                  <v-list-item-title>기본 정보 관리</v-list-item-title>
+                </v-list-item>
+              </router-link>
+
+              <router-link
                 v-if="myBand.bandUserRoleNo !== BandUserRole.BAND_ROLE_USER"
+                class="remove-line"
+                :to="{ path: '/my-page/bands/' + myBand.name + '/categories' }"
               >
-                <v-list-item-title>회원 관리</v-list-item-title>
-              </v-list-item>
-              <v-list-item
+                <v-list-item>
+                  <v-list-item-title>카테고리 관리</v-list-item-title>
+                </v-list-item>
+              </router-link>
+
+              <router-link
                 v-if="myBand.bandUserRoleNo !== BandUserRole.BAND_ROLE_USER"
+                class="remove-line"
+                :to="{ path: '/my-page/bands/' + myBand.name + '/band-users' }"
               >
-                <v-list-item-title>그룹 탈퇴</v-list-item-title>
-              </v-list-item>
-              <v-list-item
-                v-if="
-                  myBand.bandUserInfobandUserRoleNo !==
-                  BandUserRole.BAND_ROLE_USER
-                "
+                <v-list-item>
+                  <v-list-item-title>그룹 회원 관리</v-list-item-title>
+                </v-list-item>
+              </router-link>
+
+              <router-link
+                class="remove-line"
+                :to="{ path: '/my-page/bands/' + myBand.name + '/leave' }"
               >
-                <v-list-item-title>그룹 삭제</v-list-item-title>
-              </v-list-item>
+                <v-list-item>
+                  <v-list-item-title class="font-red"
+                    >그룹 탈퇴
+                  </v-list-item-title>
+                </v-list-item>
+              </router-link>
+
+              <router-link
+                v-if="myBand.bandUserRoleNo === BandUserRole.BAND_ROLE_CREATOR"
+                class="remove-line"
+                :to="{ path: '/my-page/bands/' + myBand.name + '/closing' }"
+              >
+                <v-list-item>
+                  <v-list-item-title class="font-red"
+                    >그룹 삭제
+                  </v-list-item-title>
+                </v-list-item>
+              </router-link>
             </v-list-group>
 
             <!-- 테스트 자료-->
@@ -128,12 +176,16 @@ export default {
 
 <style scoped>
 .custom-list-margin {
-  margin-left: 1em;
-  margin-right: 1em;
+  margin-left: 0.8em;
+  margin-right: 0.8em;
 }
 
 .remove-line {
   text-decoration: none;
   color: inherit;
+}
+
+.font-red {
+  color: #ff3f3f;
 }
 </style>
