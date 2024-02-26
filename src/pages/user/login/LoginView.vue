@@ -20,7 +20,6 @@ export default {
       };
       if (this.isEmailSave === true) {
         document.cookie = "exuser=" + this.email + ";path=/login";
-        alert(document.cookie);
       }
       this.$axios
         .post("/login", JSON.stringify(params), {
