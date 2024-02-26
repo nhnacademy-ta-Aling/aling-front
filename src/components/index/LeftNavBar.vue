@@ -16,11 +16,6 @@ export default {
       bandModal: false,
     };
   },
-  methods: {
-    openModal() {
-      this.bandModal = true;
-    },
-  },
   components: {
     LeftBarBandList,
   },

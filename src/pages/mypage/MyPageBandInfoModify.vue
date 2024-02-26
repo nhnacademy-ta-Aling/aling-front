@@ -1,15 +1,23 @@
 <script>
 import { Editor } from "@toast-ui/vue-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
+import { Header } from "@/main";
 
 export default {
   components: {
     Editor,
   },
+  // eslint-disable-next-line no-unused-vars
+  beforeRouteUpdate(to, from, next) {
+    next();
+    this.fetchData();
+  },
   data() {
     return {
+      bandDetail: null,
       avatarSize: 100,
       bandName: "",
+      rewriteBandName: "",
       bandNameSuccess: false,
       bandNameMessage: "",
 
@@ -27,10 +35,35 @@ export default {
   },
   computed: {
     checkBtn() {
-      return this.bandName.trim() === "" || this.bandNameSuccess;
+      return (
+        this.rewriteBandName.trim() === "" ||
+        this.bandNameSuccess ||
+        this.rewriteBandName === this.bandName
+      );
     },
   },
+  created() {
+    this.fetchData();
+  },
   methods: {
+    fetchData() {
+      this.error = this.bandDetail = null;
+      this.loading = true;
+      this.$axios
+        .get("/user/api/v1/bands/" + this.$route.params.bandName)
+        .then((response) => {
+          this.loading = false;
+          this.bandDetail = response.data.bandInfo;
+          this.rewriteBandName = this.bandName = this.bandDetail.name;
+          this.immediateJoin = this.bandDetail.isEnter;
+          this.exposurePost = this.bandDetail.isViewContent;
+          this.bandDescription = this.bandDetail.info;
+          this.$refs.tuiEditor.invoke("setMarkdown", this.bandDescription);
+        })
+        .catch(() => {
+          alert("server error!");
+        });
+    },
     enableCheckBtn() {
       this.bandNameSuccess = false;
       this.bandNameMessage = "";
@@ -40,14 +73,15 @@ export default {
       this.validMessage = "";
     },
     checkBandName() {
-      if (this.bandName.trim() === "") {
+      if (this.rewriteBandName.trim() === "") {
         this.bandNameMessage = "그룹 명을 입력해주세요.";
         return;
       }
 
       this.$axios
         .get(
-          "/user/api/v1/bands/check-duplicate?bandName=" + this.bandName.trim()
+          "/user/api/v1/bands/check-duplicate?bandName=" +
+            this.rewriteBandName.trim()
         )
         .then((response) => {
           if (response.data.isExist) {
@@ -67,20 +101,20 @@ export default {
       this.bandDescription = this.$refs.tuiEditor.invoke("getMarkdown");
       this.rewrite();
     },
-    createGroup() {
+    modifyGroup() {
       const data = {
-        bandName: this.bandName,
+        newBandName: this.rewriteBandName,
         isEnter: this.immediateJoin,
         isViewContent: this.exposurePost,
         bandInfo: this.bandDescription,
         fileNo: null,
         // 그룹 이미지 파일 업로드 추가 예정
       };
-      if (this.bandName.trim() === "") {
+      if (this.rewriteBandName.trim() === "") {
         this.validMessage = "그룹명을 입력해주세요.";
         return;
       }
-      if (!this.bandNameSuccess) {
+      if (!this.bandNameSuccess && !(this.bandName === this.rewriteBandName)) {
         this.validMessage = "중복 검사를 해주세요.";
         return;
       }
@@ -89,22 +123,22 @@ export default {
         return;
       }
 
+      const bandHeader = Header.X_BAND_NO;
+      const headers = {
+        "Content-Type": "application/json",
+        [bandHeader]: this.bandDetail.bandNo,
+      };
       this.$axios
-        .post("/user/api/v1/bands", JSON.stringify(data), {
-          headers: {
-            "Content-Type": "application/json",
-          },
+        .put("/user/api/v1/bands/" + this.bandName, JSON.stringify(data), {
+          headers: headers,
         })
         .then(() => {
-          alert("그룹 생성 완료");
-          this.closeModal();
-          window.location.reload(true);
+          window.location.replace("/my-page/bands/" + this.rewriteBandName);
+          alert("그룹 수정 완료");
         })
         .catch(() => {
           alert("server error!");
         });
-
-      this.closeModal();
     },
   },
 };
@@ -113,8 +147,8 @@ export default {
 <template>
   <v-responsive max-height="1000px">
     <!-- Vuetify Modal -->
-    <v-card class="custom-card-margin">
-      <v-card-title>그룹 생성</v-card-title>
+    <v-card class="custom-card-margin" v-if="this.$refs.tuiEditor !== null">
+      <v-card-title>그룹 기본 정보 수정</v-card-title>
       <v-divider></v-divider>
       <v-divider></v-divider>
 
@@ -135,7 +169,7 @@ export default {
               <v-text-field
                 solo
                 class="custom-inline"
-                v-model.trim="bandName"
+                v-model.trim="rewriteBandName"
                 @input="enableCheckBtn"
                 placeholder="Band Name"
                 maxlength="30"
@@ -188,11 +222,13 @@ export default {
             :options="editorOptions"
             height="300px"
             initialEditType="wysiwyg"
+            :initialValue="this.bandDescription"
             previewStyle="vertical"
             @change="getEditorInput"
           >
           </Editor>
 
+          <br />
           <v-messages
             :value="[validMessage]"
             class="red--text"
@@ -203,7 +239,7 @@ export default {
 
       <v-card-actions class="justify-end">
         <!-- Create Group Button -->
-        <v-btn @click="createGroup" color="primary">그룹 생성</v-btn>
+        <v-btn @click="modifyGroup" color="primary">그룹 정보 수정</v-btn>
       </v-card-actions>
     </v-card>
   </v-responsive>

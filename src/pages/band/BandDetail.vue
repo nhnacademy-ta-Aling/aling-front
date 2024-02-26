@@ -95,7 +95,7 @@ export default {
                 </v-btn>
                 <band-user-list-modal
                   :value="memberModal"
-                  :bandNo="bandDetail.bandNo"
+                  :bandName="bandDetail.name"
                   @input="memberModal = $event"
                 ></band-user-list-modal>
               </v-col>

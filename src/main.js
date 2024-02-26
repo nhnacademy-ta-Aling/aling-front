@@ -28,3 +28,13 @@ export const FileCategory = {
   TECH_SKILL: 6,
   HOOKS: 7,
 };
+
+export const BandUserRole = Object.freeze({
+  BAND_ROLE_CREATOR: 1,
+  BAND_ROLE_ADMIN: 2,
+  BAND_ROLE_USER: 3,
+});
+
+export const Header = Object.freeze({
+  X_BAND_NO: "X-BAND-NO",
+});

@@ -7,8 +7,8 @@ export default {
       type: Boolean,
       required: true,
     },
-    bandNo: {
-      type: Number,
+    bandName: {
+      type: String,
       require: true,
     },
   },
@@ -31,7 +31,7 @@ export default {
       this.$axios
         .get(
           "/user/api/v1/bands/" +
-            this.bandNo +
+            this.bandName +
             "/users?page=" +
             this.page +
             "&size=" +
@@ -41,6 +41,7 @@ export default {
           this.allMemberCount = response.data.totalElements;
           this.memberList = response.data.content;
           this.page += 1;
+          console.log(response.data);
         })
         .catch(() => {
           alert("server error");
@@ -50,7 +51,7 @@ export default {
       this.$axios
         .get(
           "/user/api/v1/bands/" +
-            this.bandNo +
+            this.bandName +
             "/users?page=" +
             this.page +
             "&size=" +
@@ -144,6 +145,7 @@ export default {
             </v-row>
             <infinite-loading spinner="waveDots" @infinite="infiniteHandler">
               <div slot="no-more"></div>
+              <div slot="no-results"></div>
             </infinite-loading>
           </div>
         </v-card-text>
