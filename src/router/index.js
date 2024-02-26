@@ -16,6 +16,8 @@ import NormalUserRegisterView from "@/pages/user/register/normal/NormalUserRegis
 import CompanyUserRegisterView from "@/pages/user/register/company/CompanyUserRegisterView.vue";
 import UserRegisterMainView from "@/pages/user/register/UserRegisterMainView.vue";
 import LoginView from "@/pages/user/login/LoginView.vue";
+import PostMainView from "@/pages/post/PostMainView.vue";
+import SinglePost from "@/pages/post/SinglePost.vue";
 
 Vue.use(VueRouter);
 
@@ -49,6 +51,20 @@ const routes = [
           {
             path: ":bandName",
             component: BandDetail,
+          },
+        ],
+      },
+      {
+        path: "/articles",
+        name: "post-view",
+        component: PostMainView,
+        meta: {
+          title: "Aling",
+        },
+        children: [
+          {
+            path: ":postNo",
+            component: SinglePost,
           },
         ],
       },
