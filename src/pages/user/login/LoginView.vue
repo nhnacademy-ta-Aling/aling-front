@@ -10,7 +10,7 @@ export default {
     emailRules: [(v) => !!v || ""],
     pwd: "",
     pwdRules: [(v) => !!v || ""],
-    isEmailSave: document.cookie.match("exuser=(.*)") !== null,
+    isEmailSave: document.cookie.match("exuser=(.*)")[1] !== "",
   }),
   methods: {
     login() {
@@ -19,7 +19,9 @@ export default {
         password: this.pwd,
       };
       if (this.isEmailSave === true) {
-        document.cookie = "exuser=" + this.email + ";path=/login";
+        document.cookie = "exuser=" + this.email + "; path=/login";
+      } else {
+        document.cookie = "exuser= ; path=/login";
       }
       this.$axios
         .post("/login", JSON.stringify(params), {
@@ -43,14 +45,6 @@ export default {
       <v-container>
         <v-responsive>
           <v-form ref="form" @submit.prevent="login" class="login-container">
-            <v-layout align-center="center">
-              <v-img
-                :width="200"
-                src="@/assets/logo.svg"
-                class="img-logo"
-                alt="logo"
-              />
-            </v-layout>
             <v-checkbox label="아이디 저장" v-model="isEmailSave"></v-checkbox>
             <v-text-field
               prepend-inner-icon="mdi-email"
