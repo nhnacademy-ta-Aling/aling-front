@@ -1,6 +1,14 @@
 <script>
 import { Editor } from "@toast-ui/vue-editor";
+
 import "@toast-ui/editor/dist/toastui-editor.css";
+import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
+import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.js";
+import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight-all.js";
+
+import Prism from "prismjs";
+import "prismjs/themes/prism-solarizedlight.css";
+
 import axios from "axios";
 import { FileCategory } from "@/main";
 
@@ -25,6 +33,7 @@ export default {
         language: "ko",
         hideModeSwitch: true,
         placeholder: "내용을 입력해 주세요...",
+        plugins: [[codeSyntaxHighlight, { highlighter: Prism }]],
         toolbarItems: [
           ["heading", "bold", "italic", "strike"],
           ["hr", "quote"],
@@ -109,6 +118,14 @@ export default {
           formData.append("files", this.files[i]);
         }
 
+        const data = {
+          bandPostTitle: this.postTitle,
+          bandPostContent: this.postContent,
+          isOpen: this.bandDetail.isViewContent,
+          bandPostTypeNo: 1,
+          fileNoList: [],
+        };
+
         if (this.files.length !== 0) {
           axios
             .post("/file/api/v1/files", formData, {
@@ -118,13 +135,7 @@ export default {
               },
             })
             .then((result) => {
-              const data = {
-                bandPostTitle: this.postTitle,
-                bandPostContent: this.postContent,
-                isOpen: this.bandDetail.isViewContent,
-                bandPostTypeNo: 1,
-                fileNoList: result.data.map((file) => file.fileNo),
-              };
+              data.fileNoList = result.data.map((file) => file.fileNo);
 
               axios
                 .post("/post/api/v1/band-posts", JSON.stringify(data), {
@@ -135,6 +146,10 @@ export default {
                 })
                 .then(() => {
                   alert("게시글 작성 완료");
+                  this.files = [];
+                  this.$refs.tuiEditor.invoke("setValue", "");
+                  this.postTitle = "";
+                  this.closeDialog();
                   window.location.reload();
                 })
                 .catch(() => {
@@ -142,13 +157,6 @@ export default {
                 });
             });
         } else {
-          const data = {
-            bandPostTitle: this.postTitle,
-            bandPostContent: this.postContent,
-            isOpen: this.bandDetail.isViewContent,
-            bandPostTypeNo: 1,
-            fileNoList: [],
-          };
           axios
             .post("/post/api/v1/band-posts", JSON.stringify(data), {
               headers: {
@@ -158,16 +166,16 @@ export default {
             })
             .then(() => {
               alert("게시글 작성 완료");
+              this.files = [];
+              this.$refs.tuiEditor.invoke("setValue", "");
+              this.postTitle = "";
+              this.closeDialog();
               window.location.reload();
             })
             .catch(() => {
               alert("server error!");
             });
         }
-        this.files = [];
-        this.$refs.tuiEditor.invoke("setValue", "");
-        this.postTitle = "";
-        this.closeDialog();
       }
     },
   },
