@@ -14,6 +14,11 @@ import MyPageBandView from "@/pages/mypage/MyPageBandView.vue";
 import MyPageBandCreation from "@/pages/mypage/MyPageBandCreation.vue";
 import MyPageBandList from "@/pages/mypage/MyPageBandList.vue";
 import IndexMainView from "@/pages/index/IndexMainView.vue";
+import MyPageBandInfoModify from "@/pages/mypage/MyPageBandInfoModify.vue";
+import MyPageBandCategory from "@/pages/mypage/MyPageBandCategory.vue";
+import MyPageBandClosing from "@/pages/mypage/MyPageBandClosing.vue";
+import MyPageBandLeave from "@/pages/mypage/MyPageBandLeave.vue";
+import MyPageBandUser from "@/pages/mypage/MyPageBandUser.vue";
 
 Vue.use(VueRouter);
 
@@ -88,6 +93,26 @@ const routes = [
           {
             path: "new",
             component: MyPageBandCreation,
+          },
+          {
+            path: ":bandName",
+            component: MyPageBandInfoModify,
+          },
+          {
+            path: ":bandName/band-users",
+            component: MyPageBandUser,
+          },
+          {
+            path: ":bandName/categories",
+            component: MyPageBandCategory,
+          },
+          {
+            path: ":bandName/leave",
+            component: MyPageBandLeave,
+          },
+          {
+            path: ":bandName/closing",
+            component: MyPageBandClosing,
           },
         ],
       },
