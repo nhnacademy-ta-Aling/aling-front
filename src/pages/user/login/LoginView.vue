@@ -1,8 +1,6 @@
 <script>
-import LoginHeader from "@/components/index/LoginHeader.vue";
-
 export default {
-  components: { LoginHeader },
+  components: {},
   data: () => ({
     email: document.cookie.match("exuser=(.*)")
       ? document.cookie.match("exuser=(.*)")[1]
@@ -39,8 +37,7 @@ export default {
 </script>
 
 <template>
-  <div>
-    <login-header></login-header>
+  <div style="margin-top: 5em">
     <v-main class="grey lighten-3">
       <v-container>
         <v-responsive>
@@ -117,7 +114,7 @@ export default {
   padding: 1.7em;
   margin: auto;
   width: auto;
-  max-width: 25em;
+  max-width: 30em;
   background-color: white;
 }
 
