@@ -16,7 +16,7 @@ export default {
           this.myBandList = response.data;
         })
         .catch(() => {
-          alert("bar server error");
+          alert("left var server error");
         });
     },
   },

@@ -128,7 +128,6 @@ export default {
                     plain
                     v-if="bandCategory.name !== 'default'"
                     color="primary"
-                    class="custom-mini-btn"
                     >수정
                   </v-btn>
                 </td>
@@ -189,13 +188,6 @@ export default {
   padding-right: 0.5em;
   font-size: 17px;
   font-weight: bold;
-}
-
-.custom-mini-btn {
-  margin-left: 1px;
-  margin-right: 1px;
-  padding-left: 1px;
-  padding-right: 1px;
 }
 
 .custom-inline {
