@@ -87,7 +87,8 @@ export default {
               >
               <v-card flat>
                 <v-card-text>
-                  <router-link to="#">아이디/비밀번호 찾기</router-link>
+                  <router-link to="#">아이디</router-link>&nbsp;/
+                  <router-link to="#">비밀번호 찾기</router-link>
                 </v-card-text>
                 <v-card-text style="margin-top: -2em">
                   <p class="social-login-text">소설로 시작하기</p>
