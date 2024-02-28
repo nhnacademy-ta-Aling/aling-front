@@ -40,10 +40,15 @@
           <v-icon size="27">mdi-magnify</v-icon>
         </v-btn>
         <div style="padding: 0 5px 0 3px">
-          <v-tabs style="display: contents; height: 0">
+          <v-tabs>
             <v-tab
               key="home"
-              style="min-width: 60px; min-height: 55px; top: 2px"
+              style="
+                min-width: 60px;
+                max-width: 60px;
+                min-height: 55px;
+                top: 2px;
+              "
             >
               <router-link to="/">
                 <img
@@ -55,7 +60,12 @@
             </v-tab>
             <v-tab
               key="recruit"
-              style="min-width: 60px; min-height: 55px; top: 2px"
+              style="
+                min-width: 60px;
+                max-width: 60px;
+                min-height: 55px;
+                top: 2px;
+              "
             >
               <router-link to="#">
                 <img
@@ -68,7 +78,12 @@
             </v-tab>
             <v-tab
               key="band"
-              style="min-width: 60px; min-height: 55px; top: 2px"
+              style="
+                min-width: 60px;
+                max-width: 60px;
+                min-height: 55px;
+                top: 2px;
+              "
             >
               <router-link to="/bands">
                 <img
@@ -81,7 +96,12 @@
             </v-tab>
             <v-tab
               key="notify"
-              style="min-width: 60px; min-height: 55px; top: 2px"
+              style="
+                min-width: 60px;
+                max-width: 60px;
+                min-height: 55px;
+                top: 2px;
+              "
             >
               <router-link to="#">
                 <img
@@ -98,7 +118,7 @@
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
-            <v-avatar color="#3D6BFF" size="32" />
+            <v-avatar color="#3D6BFF" size="38" />
           </v-btn>
         </template>
         <v-list>
