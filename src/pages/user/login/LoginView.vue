@@ -37,57 +37,42 @@ export default {
 </script>
 
 <template>
-  <div style="margin-top: 5em">
-    <v-main class="grey lighten-3">
-      <v-container>
-        <v-responsive>
-          <v-form ref="form" @submit.prevent="login" class="login-container">
-            <v-checkbox label="아이디 저장" v-model="isEmailSave"></v-checkbox>
-            <v-text-field
-              prepend-inner-icon="mdi-email"
-              outlined
-              v-model="email"
-              :rules="emailRules"
-              aria-required="true"
-              label="아이디"
-              style="margin-top: -1em"
-            ></v-text-field>
-            <v-text-field
-              prepend-inner-icon="mdi-lock"
-              outlined
-              v-model="pwd"
-              :rules="pwdRules"
-              aria-required="true"
-              type="password"
-              label="비밀번호"
-              style="margin-top: -1em"
-            ></v-text-field>
-            <v-btn
-              type="submit"
-              depressed
-              style="
-                background: white;
-                color: #3d6bff;
-                border-color: #3d6bff;
-                border-style: solid;
-                width: 100%;
-                height: 3em;
-                margin-top: -0.5em;
-              "
-              >로그인</v-btn
-            >
-            <v-divider style="color: #666666; margin-top: 1em"></v-divider>
-            <v-card flat>
-              <v-card-text>
-                <p>소셜로 시작하기</p>
-                <li>카카오</li>
-                <li>구글</li>
-                <li>...</li>
-              </v-card-text>
-            </v-card>
-            <v-divider style="color: #666666"></v-divider>
-            <router-link to="/signup">
+  <v-main class="grey lighten-3" justify="center">
+    <v-container fill-height>
+      <v-responsive>
+        <v-row class="login-container" align="center">
+          <v-col class="hidden-sm-and-down" ml-6>
+            <v-layout>
+              <v-img src="@/assets/logo.svg" class="img-logo" alt="logo" />
+            </v-layout>
+          </v-col>
+          <v-col ml-6 sm-12 align-self="center">
+            <v-form ref="form" @submit.prevent="login" ml-6 sm-12>
+              <v-checkbox
+                label="아이디 저장"
+                v-model="isEmailSave"
+              ></v-checkbox>
+              <v-text-field
+                prepend-inner-icon="mdi-email"
+                outlined
+                v-model="email"
+                :rules="emailRules"
+                aria-required="true"
+                label="아이디"
+                style="margin-top: -1em"
+              ></v-text-field>
+              <v-text-field
+                prepend-inner-icon="mdi-lock"
+                outlined
+                v-model="pwd"
+                :rules="pwdRules"
+                aria-required="true"
+                type="password"
+                label="비밀번호"
+                style="margin-top: -1em"
+              ></v-text-field>
               <v-btn
+                type="submit"
                 depressed
                 style="
                   background: white;
@@ -96,16 +81,69 @@ export default {
                   border-style: solid;
                   width: 100%;
                   height: 3em;
-                  margin-top: 1em;
+                  margin-top: -0.5em;
                 "
-                >회원가입
-              </v-btn></router-link
-            >
-          </v-form>
-        </v-responsive>
-      </v-container>
-    </v-main>
-  </div>
+                >로그인</v-btn
+              >
+              <v-card flat>
+                <v-card-text>
+                  <router-link to="#">아이디</router-link>&nbsp;/
+                  <router-link to="#">비밀번호 찾기</router-link>
+                </v-card-text>
+                <v-card-text style="margin-top: -2em">
+                  <p class="social-login-text">소설로 시작하기</p>
+                  <v-row justify="space-around">
+                    <v-col cols="auto">
+                      <router-link to="#">
+                        <v-img
+                          src="/oauthicons/kakao-icon.png"
+                          alt="kakao"
+                          class="oauth-icon"
+                        />
+                      </router-link>
+                    </v-col>
+                    <v-col cols="auto">
+                      <router-link to="#">
+                        <v-img
+                          src="/oauthicons/naver-icon.png"
+                          alt="naver"
+                          class="oauth-icon"
+                        />
+                      </router-link>
+                    </v-col>
+                    <v-col cols="auto">
+                      <router-link to="#">
+                        <v-img
+                          src="/oauthicons/github-icon.png"
+                          alt="github"
+                          class="oauth-icon"
+                        />
+                      </router-link>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+              <router-link to="/signup">
+                <v-btn
+                  depressed
+                  style="
+                    background: white;
+                    color: #3d6bff;
+                    border-color: #3d6bff;
+                    border-style: solid;
+                    width: 100%;
+                    height: 3em;
+                    margin-top: 1em;
+                  "
+                  >회원가입
+                </v-btn></router-link
+              >
+            </v-form>
+          </v-col>
+        </v-row>
+      </v-responsive>
+    </v-container>
+  </v-main>
 </template>
 
 <style scoped>
@@ -114,11 +152,44 @@ export default {
   padding: 1.7em;
   margin: auto;
   width: auto;
-  max-width: 30em;
+  max-width: 80em;
   background-color: white;
 }
-
 .img-logo {
   object-fit: fill;
+  max-width: 25em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3em;
+}
+.social-login-text {
+  text-align: center;
+  font-size: 1em;
+  color: #5c667b;
+  line-height: 24px;
+  letter-spacing: -1px;
+}
+
+.social-login-text:after {
+  width: 5em;
+  height: 1px;
+  background-color: #eaedf4;
+  display: inline-block;
+  vertical-align: super;
+  content: "";
+}
+
+.social-login-text:before {
+  width: 5em;
+  height: 1px;
+  background-color: #eaedf4;
+  display: inline-block;
+  vertical-align: super;
+  content: "";
+}
+
+.oauth-icon {
+  width: 3em;
+  height: 3em;
 }
 </style>
