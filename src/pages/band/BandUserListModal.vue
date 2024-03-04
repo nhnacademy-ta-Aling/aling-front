@@ -41,7 +41,6 @@ export default {
           this.allMemberCount = response.data.totalElements;
           this.memberList = response.data.content;
           this.page += 1;
-          console.log(response.data);
         })
         .catch(() => {
           alert("server error");

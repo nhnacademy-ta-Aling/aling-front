@@ -134,27 +134,32 @@ export default {
           </v-btn>
         </div>
       </div>
-      <v-carousel hide-delimiters height="auto" class="py-6">
+      <v-carousel
+        hide-delimiters
+        height="auto"
+        class="py-6"
+        v-if="postData.post.file && postData.post.file.length > 0"
+      >
         <v-carousel-item
           v-for="(item, index) in postData.post.file"
           :key="index"
         >
-          <v-img aspect-ratio="1.7" max-height="350" contain :src="item.path" />
+          <v-img aspect-ratio="1.7" max-height="300" contain :src="item.path" />
         </v-carousel-item>
       </v-carousel>
       <v-divider></v-divider>
       <v-bottom-navigation grow>
         <v-btn>
           <span>좋아요</span>
-          <v-icon>mdi-thumb-up-outline</v-icon>
+          <v-icon small>mdi-thumb-up-outline</v-icon>
         </v-btn>
         <v-btn>
           <span>스크랩</span>
-          <v-icon>mdi-bookmark-outline</v-icon>
+          <v-icon small>mdi-bookmark-outline</v-icon>
         </v-btn>
         <v-btn>
           <span>댓글</span>
-          <v-icon>mdi-message-reply-text-outline</v-icon>
+          <v-icon small>mdi-message-reply-text-outline</v-icon>
         </v-btn>
       </v-bottom-navigation>
     </v-responsive>
