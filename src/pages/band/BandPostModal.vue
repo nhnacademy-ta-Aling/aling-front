@@ -119,6 +119,7 @@ export default {
         }
 
         const data = {
+          bandNo: this.bandDetail.bandNo,
           bandPostTitle: this.postTitle,
           bandPostContent: this.postContent,
           isOpen: this.bandDetail.isViewContent,
