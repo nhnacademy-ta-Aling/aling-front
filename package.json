@@ -24,7 +24,9 @@
     "vue-router": "^3.5.1",
     "vue-svg-loader": "^0.16.0",
     "vuetify": "^2.6.0",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "vue-cookie": "^1.1.4",
+    "vue-cookies": "^1.8.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
