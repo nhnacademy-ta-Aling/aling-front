@@ -13,6 +13,9 @@ module.exports = defineConfig({
       "/post": {
         target: "http://localhost:8090",
       },
+      "/auth": {
+        target: "http://localhost:8090",
+      },
     },
   },
 });
