@@ -4,6 +4,7 @@ export default {
     return {
       loading: false,
       bandList: null,
+      bandImageMap: new Map(),
       error: null,
     };
   },
@@ -11,10 +12,10 @@ export default {
     this.fetchData();
   },
   methods: {
-    fetchData() {
+    async fetchData() {
       this.error = this.bandList = null;
       this.loading = true;
-      this.$axios
+      await this.$axios
         .get("/user/api/v1/users/my-bands")
         .then((response) => {
           this.loading = false;
@@ -23,6 +24,23 @@ export default {
         .catch((error) => {
           this.error = error.toString();
         });
+
+      for (const band of this.bandList) {
+        if (band.fileNo !== null) {
+          const response = await this.$axios
+            .get("/file/api/v1/files/" + band.fileNo, {
+              headers: {
+                Accept: "application/json",
+              },
+            })
+            .catch(() => {
+              alert("이미지 로드에 실패하였습니다.");
+            });
+
+          this.bandImageMap.set(band.bandNo, response.data.path);
+        }
+      }
+      this.loading = true;
     },
   },
   computed: {
@@ -46,7 +64,7 @@ export default {
       :to="{ path: '/bands/' + band.name }"
       :key="band.bandNo"
     >
-      <v-card class="post-card">
+      <v-card v-if="loading" class="post-card">
         <v-row>
           <v-col cols="3">
             <v-img
@@ -54,7 +72,11 @@ export default {
               alt="no image"
               min-width="60px"
               max-width="100px"
-              src="../../assets/band-no-image.png"
+              :src="
+                bandImageMap.has(band.bandNo)
+                  ? bandImageMap.get(band.bandNo)
+                  : require('@/assets/band-no-image.png')
+              "
             ></v-img>
           </v-col>
           <v-col cols="9">
@@ -97,6 +119,7 @@ export default {
   top: 1em;
   margin-left: 35%;
   align-items: center;
+  aspect-ratio: 1/1;
 }
 
 .v-card-title {

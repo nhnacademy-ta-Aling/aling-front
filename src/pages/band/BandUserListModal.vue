@@ -128,7 +128,10 @@ export default {
               </v-col>
             </v-row>
             <!-- 테스트 데이터 끝-->
-            <v-row v-for="bandMember in memberList" :key="bandMember.userNo">
+            <v-row
+              v-for="bandMember in memberList"
+              :key="bandMember.userInfo.userNo"
+            >
               <v-col cols="3" class="float-left more-dense">
                 <v-img
                   class="image-container"
@@ -139,7 +142,7 @@ export default {
                 ></v-img>
               </v-col>
               <v-col cols="9" class="custom-member-name">
-                {{ bandMember.name }}
+                {{ bandMember.userInfo.name }}
               </v-col>
             </v-row>
             <infinite-loading spinner="waveDots" @infinite="infiniteHandler">

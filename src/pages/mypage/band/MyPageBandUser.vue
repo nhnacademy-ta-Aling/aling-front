@@ -244,7 +244,7 @@ export default {
                     width="100%"
                     style="max-width: 45px; min-width: 25px"
                     alt="no image"
-                    src="../../assets/user-no-image.png"
+                    src="../../../assets/user-no-image.png"
                   />
                 </td>
                 <td class="justify-center">

@@ -24,6 +24,8 @@ export default {
   data() {
     return {
       loading: false,
+      imageLoading: false,
+      bandImage: null,
       bandDetail: null,
       bandUserInfo: null,
       error: null,
@@ -48,12 +50,12 @@ export default {
     this.fetchData();
   },
   methods: {
-    fetchData() {
+    async fetchData() {
       this.error = this.bandDetail = null;
       this.loading = true;
       this.page = 0;
       this.postList = [];
-      this.$axios
+      await this.$axios
         .get("/user/api/v1/bands/" + this.$route.params.bandName)
         .then((response) => {
           this.loading = false;
@@ -81,6 +83,18 @@ export default {
         .catch((error) => {
           this.error = error.toString();
         });
+
+      if (this.bandDetail.fileNo) {
+        await this.$axios
+          .get("/file/api/v1/files/" + this.bandDetail.fileNo)
+          .then((response) => {
+            this.bandImage = response.data.path;
+          })
+          .catch(() => {
+            alert("이미지 로딩에 실패했습니다.");
+          });
+      }
+      this.imageLoading = true;
     },
     openBandMemberModal() {
       this.memberModal = true;
@@ -169,10 +183,15 @@ export default {
         <v-row>
           <v-col cols="2" class="more-dense">
             <v-img
+              v-if="imageLoading"
               class="image-container"
               alt="no image"
               min-width="50px"
-              src="../../assets/band-no-image.png"
+              :src="
+                bandDetail.fileNo
+                  ? bandImage
+                  : require('@/assets/band-no-image.png')
+              "
             ></v-img>
           </v-col>
           <v-col cols="10">
@@ -385,6 +404,7 @@ export default {
   margin-left: 45%;
   display: flex;
   align-items: center;
+  aspect-ratio: 1/1;
 }
 
 .custom-bandInfo-subtitle {
