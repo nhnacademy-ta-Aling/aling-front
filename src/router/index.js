@@ -23,8 +23,11 @@ import UserRegisterMainView from "@/pages/user/register/UserRegisterMainView.vue
 import LoginView from "@/pages/user/login/LoginView.vue";
 import PostMainView from "@/pages/post/PostMainView.vue";
 import SinglePost from "@/pages/post/SinglePost.vue";
+import IntegrationPostView from "@/pages/post/IntegrationPostView.vue";
+import VueCookies from "vue-cookies";
 
 Vue.use(VueRouter);
+Vue.use(VueCookies);
 
 const routes = [
   {
@@ -70,6 +73,19 @@ const routes = [
           {
             path: ":postNo",
             component: SinglePost,
+          },
+        ],
+      },
+      {
+        path: "/articles/integration",
+        component: PostMainView,
+        meta: {
+          title: "Aling - Integration Post",
+        },
+        children: [
+          {
+            path: ":postNo",
+            component: IntegrationPostView,
           },
         ],
       },

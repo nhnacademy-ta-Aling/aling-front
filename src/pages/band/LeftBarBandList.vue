@@ -11,7 +11,13 @@ export default {
   methods: {
     fetchData() {
       this.$axios
-        .get("/user/api/v1/users/my-bands")
+        .get("/user/api/v1/users/my-bands", {
+          headers: {
+            Authorization: "Bearer " + this.$cookies.get("access_token"),
+            // FIXME 유저 식별 정보 넘어갈 수 있도록 수정
+            "X-TEMP-USER-NO": 117,
+          },
+        })
         .then((response) => {
           this.myBandList = response.data;
         })
