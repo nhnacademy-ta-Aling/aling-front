@@ -11,11 +11,6 @@ import LeftBarBandList from "@/pages/band/LeftBarBandList.vue";
 
 export default {
   name: "left-nav-bar",
-  data() {
-    return {
-      bandModal: false,
-    };
-  },
   components: {
     LeftBarBandList,
   },
