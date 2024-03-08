@@ -2,6 +2,12 @@
 import ReplyListModal from "@/components/reply/ReplyListModal.vue";
 
 export default {
+  props: {
+    postNo: {
+      required: true,
+      type: Number,
+    },
+  },
   components: { ReplyListModal },
   data() {
     return {
@@ -29,7 +35,7 @@ export default {
       <v-layout>
         <button @click="isReplyViewed = false">댓글창 닫기</button>
       </v-layout>
-      <reply-list-modal />
+      <reply-list-modal :postNo="postNo" />
     </v-overlay>
   </v-bottom-navigation>
 </template>

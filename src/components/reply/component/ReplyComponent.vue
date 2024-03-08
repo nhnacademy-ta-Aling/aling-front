@@ -17,15 +17,20 @@ export default {
     <reply-writer-component :writer="reply.writer" />
     <v-list-item-content id="reply-write-info">
       <v-list-item-title>
-        <p class="text-caption" v-if="reply.modifyAt !== null">
-          {{ reply.modifyAt }} (수정됨)
-        </p>
-        <p class="text-caption" v-else>
-          {{ reply.createAt }}
-        </p>
+        <v-row>
+          <v-col>
+            {{ reply.writer.username }}
+          </v-col>
+          <v-col class="text-caption" v-if="reply.reply.modifyAt !== null">
+            {{ reply.reply.modifyAt }} (수정됨)
+          </v-col>
+          <v-col class="text-caption" v-else>
+            {{ reply.reply.createAt }}
+          </v-col>
+        </v-row>
       </v-list-item-title>
       <v-list-item-content id="reply-content">
-        {{ reply.content }}
+        {{ reply.reply.content }}
       </v-list-item-content>
     </v-list-item-content>
   </v-list-item>
