@@ -12,7 +12,7 @@
           <table>
             <thead>
               <tr>
-                <th style="text-align: center; width: 7%">No</th>
+                <th style="text-align: center; width: 10%">No</th>
                 <th style="text-align: center">게시물</th>
                 <th style="text-align: center; width: 90px">스크랩 취소</th>
               </tr>
@@ -25,10 +25,20 @@
               >
                 <td style="text-align: center">{{ scrap.postNo }}</td>
                 <td style="text-align: left; padding-left: 20px">
-                  {{ scrap.content }}
+                  <a
+                    style="color: black; text-decoration-line: none"
+                    :href="`/articles/${scrap.postNo}`"
+                  >
+                    {{ scrap.content }}
+                  </a>
                 </td>
                 <td style="text-align: center">
-                  <v-btn depressed style="background-color: white">취소</v-btn>
+                  <v-btn
+                    depressed
+                    style="background-color: white"
+                    @click="scrapCancel(scrap.postNo)"
+                    >취소</v-btn
+                  >
                 </td>
               </tr>
             </tbody>
@@ -38,12 +48,12 @@
       <v-row>
         <v-col cols="12">
           <custom-pagination
-            style="text-align: center"
+            class="text-center"
             :currentPage="this.pageNumber"
-            :pageBtnLength="this.size"
+            :pageBtnLength="5"
             :totalPage="this.totalPages"
             @clickPageBtn="updatePage"
-          />
+          ></custom-pagination>
         </v-col>
       </v-row>
     </v-card>
@@ -62,8 +72,8 @@ export default {
   components: { CustomPagination, CustomMyPageHeader },
   data() {
     return {
-      size: Number.parseInt(this.$route.params.size),
-      pageNumber: Number.parseInt(this.$route.params.page),
+      size: this.$route.params.size,
+      pageNumber: this.$route.params.page,
       totalPages: 0,
       totalElements: 0,
       scraps: [],
@@ -84,7 +94,7 @@ export default {
   methods: {
     fetchData() {
       this.loading = true;
-      const token = this.$cookie.get("token");
+      const token = this.$cookie.get("Authorization");
       const config = {
         headers: { Authorization: token },
       };
@@ -105,13 +115,30 @@ export default {
           this.totalPages = response.data.totalPages;
           this.totalElements = response.data.totalElements;
         })
-        .catch(() => {
-          alert("server error!");
+        .catch((response) => {
+          alert("server error! - " + response);
         });
     },
     updatePage(pageNum) {
       window.location.href =
         "/my-page/scraps?size=" + this.size + "&page=" + pageNum;
+    },
+    scrapCancel(postNo) {
+      const token = this.$cookie.get("Authorization");
+      const config = {
+        headers: { Authorization: token },
+      };
+
+      this.$axios
+        .post("/user/api/v1/post-scraps/" + postNo, {}, config)
+        .then((response) => {
+          console.log(response);
+
+          window.location.reload();
+        })
+        .catch((response) => {
+          alert("server error! - " + response);
+        });
     },
   },
 };
