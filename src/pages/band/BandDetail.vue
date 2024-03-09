@@ -26,6 +26,7 @@ export default {
       loading: false,
       bandDetail: null,
       bandUserInfo: null,
+      bandCategoryList: [],
       error: null,
       infoMore: false,
       infoIsLong: false,
@@ -59,6 +60,16 @@ export default {
           this.loading = false;
           this.bandDetail = response.data.bandInfo;
           this.bandUserInfo = response.data.bandUserInfo;
+          this.$axios
+            .get(
+              "/post/api/v1/band-post-types?bandNo=" + this.bandDetail.bandNo
+            )
+            .then((response) => {
+              this.bandCategoryList = response.data;
+            })
+            .catch(() => {
+              alert("server error!!");
+            });
           this.$axios
             .get(
               "/post/api/v1/bands/" +
@@ -158,6 +169,11 @@ export default {
       };
     },
   },
+  mounted() {
+    setTimeout(() => {
+      this.$refs.progressCircular.$el.style.display = "none";
+    }, 300);
+  },
 };
 </script>
 
@@ -243,6 +259,7 @@ export default {
           </v-icon>
           <band-post-modal
             :bandDetail="bandDetail"
+            :bandCategoryList="bandCategoryList"
             class="pa-2"
           ></band-post-modal>
         </v-row>
@@ -250,6 +267,13 @@ export default {
     </v-card>
     <!--    그룹 게시물 리스트-->
     <div class="my-10 pb-1">
+      <div class="text-center" v-if="!postList.length > 0">
+        <v-progress-circular
+          ref="progressCircular"
+          indeterminate
+          color="blue lighten-1"
+        ></v-progress-circular>
+      </div>
       <v-card class="mx-6 mb-12" v-for="obj in postList" :key="obj.postNo">
         <v-row class="d-flex flex-row px-5 py-5">
           <v-avatar size="35">
