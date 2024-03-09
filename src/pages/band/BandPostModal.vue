@@ -18,14 +18,17 @@ export default {
   },
   props: {
     bandDetail: Object,
+    bandCategoryList: Array,
   },
   data() {
     return {
       dialog: false,
       postTitle: "",
+      selectBandPostTypeNo: null,
       postContent: "",
       files: [],
       postTitleValidMsg: "",
+      bandPostValidMsg: "",
       postContentValidMsg: "",
       fileValidMsg: "",
       editorOptions: {
@@ -43,6 +46,7 @@ export default {
           ["scrollSync"],
         ],
       },
+      items: ["Foo", "Bar", "Fizz", "Buzz"],
     };
   },
   methods: {
@@ -77,6 +81,10 @@ export default {
         isValid = false;
       } else {
         this.postTitleValidMsg = "";
+      }
+      if (!this.selectBandPostTypeNo) {
+        this.bandPostValidMsg = "Category를 골라주세요.";
+        isValid = false;
       }
       if (this.postContent.length === 0) {
         this.postContentValidMsg = "내용을 입력해주세요.";
@@ -123,7 +131,7 @@ export default {
           bandPostTitle: this.postTitle,
           bandPostContent: this.postContent,
           isOpen: this.bandDetail.isViewContent,
-          bandPostTypeNo: 1,
+          bandPostTypeNo: this.selectBandPostTypeNo,
           fileNoList: [],
         };
 
@@ -196,12 +204,25 @@ export default {
         <v-container>
           <div class="post-body">
             <v-row>
-              <v-text-field
-                v-model="postTitle"
-                :error-messages="postTitleValidMsg"
-                :counter="50"
-                label="게시글 제목"
-              ></v-text-field>
+              <v-col cols="9">
+                <v-text-field
+                  v-model="postTitle"
+                  :error-messages="postTitleValidMsg"
+                  :counter="50"
+                  label="게시글 제목"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="3" class="pt-7">
+                <v-select
+                  v-model="selectBandPostTypeNo"
+                  :items="bandCategoryList"
+                  :error-messages="bandPostValidMsg"
+                  dense
+                  label="게시글 Category"
+                  item-text="name"
+                  item-value="bandPostTypeNo"
+                ></v-select>
+              </v-col>
             </v-row>
 
             <br />
