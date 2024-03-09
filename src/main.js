@@ -37,4 +37,5 @@ export const BandUserRole = Object.freeze({
 
 export const Header = Object.freeze({
   X_BAND_NO: "X-BAND-NO",
+  X_FILE_CATEGORY: "X-File-Category",
 });

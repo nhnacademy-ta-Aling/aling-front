@@ -1,5 +1,5 @@
 <script>
-import MyPageBandLeftNavBar from "@/pages/mypage/MyPageBandLeftNavBar.vue";
+import MyPageBandLeftNavBar from "@/pages/mypage/band/MyPageBandLeftNavBar.vue";
 
 export default {
   components: { MyPageBandLeftNavBar },

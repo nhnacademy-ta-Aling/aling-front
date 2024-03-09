@@ -7,15 +7,15 @@ import BandMainView from "@/pages/band/BandMainView.vue";
 import BandList from "@/pages/band/BandList.vue";
 import BandDetail from "@/pages/band/BandDetail.vue";
 import MyPageIndexView from "@/pages/mypage/MyPageIndexView.vue";
-import MyPageBandView from "@/pages/mypage/MyPageBandView.vue";
-import MyPageBandCreation from "@/pages/mypage/MyPageBandCreation.vue";
-import MyPageBandList from "@/pages/mypage/MyPageBandList.vue";
+import MyPageBandView from "@/pages/mypage/band/MyPageBandView.vue";
+import MyPageBandCreation from "@/pages/mypage/band/MyPageBandCreation.vue";
+import MyPageBandList from "@/pages/mypage/band/MyPageBandList.vue";
 import IndexMainView from "@/pages/index/IndexMainView.vue";
-import MyPageBandInfoModify from "@/pages/mypage/MyPageBandInfoModify.vue";
-import MyPageBandCategory from "@/pages/mypage/MyPageBandCategory.vue";
-import MyPageBandClosing from "@/pages/mypage/MyPageBandClosing.vue";
-import MyPageBandLeave from "@/pages/mypage/MyPageBandLeave.vue";
-import MyPageBandUser from "@/pages/mypage/MyPageBandUser.vue";
+import MyPageBandInfoModify from "@/pages/mypage/band/MyPageBandInfoModify.vue";
+import MyPageBandCategory from "@/pages/mypage/band/MyPageBandCategory.vue";
+import MyPageBandClosing from "@/pages/mypage/band/MyPageBandClosing.vue";
+import MyPageBandLeave from "@/pages/mypage/band/MyPageBandLeave.vue";
+import MyPageBandUser from "@/pages/mypage/band/MyPageBandUser.vue";
 import UserRegisterSelectView from "@/pages/user/register/UserRegisterSelectView.vue";
 import NormalUserRegisterView from "@/pages/user/register/normal/NormalUserRegisterView.vue";
 import CompanyUserRegisterView from "@/pages/user/register/company/CompanyUserRegisterView.vue";
@@ -27,8 +27,11 @@ import MyPageIndexMainView from "@/pages/mypage/MyPageIndexMainView.vue";
 import MyPageUser from "@/pages/mypage/user/MyPageUser.vue";
 import MyPageNormalPost from "@/pages/mypage/post/MyPageNormalPost.vue";
 import MyPageBandPost from "@/pages/mypage/post/MyPageBandPost.vue";
+import IntegrationPostView from "@/pages/post/IntegrationPostView.vue";
+import VueCookies from "vue-cookies";
 
 Vue.use(VueRouter);
+Vue.use(VueCookies);
 
 const routes = [
   {
@@ -74,6 +77,19 @@ const routes = [
           {
             path: ":postNo",
             component: SinglePost,
+          },
+        ],
+      },
+      {
+        path: "/articles/integration",
+        component: PostMainView,
+        meta: {
+          title: "Aling - Integration Post",
+        },
+        children: [
+          {
+            path: ":postNo",
+            component: IntegrationPostView,
           },
         ],
       },

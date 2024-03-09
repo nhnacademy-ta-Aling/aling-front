@@ -22,15 +22,20 @@ export default {
         document.cookie = "exuser= ; path=/login";
       }
       this.$axios
-        .post("/login", JSON.stringify(params), {
+        .post("/auth/api/v1/jwt/issue", JSON.stringify(params), {
           headers: {
             "Content-Type": "application/json",
+            "Login-Id": params.email,
+            "Login-Pwd": params.password,
           },
         })
         .then(() => {
           window.location = "/";
         })
-        .catch(() => alert("로그인 실패"));
+        .catch(() => {
+          this.pwd = "";
+          alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+        });
     },
   },
 };
@@ -91,7 +96,7 @@ export default {
                   <router-link to="#">비밀번호 찾기</router-link>
                 </v-card-text>
                 <v-card-text style="margin-top: -2em">
-                  <p class="social-login-text">소설로 시작하기</p>
+                  <p class="social-login-text">소셜로 시작하기</p>
                   <v-row justify="space-around">
                     <v-col cols="auto">
                       <router-link to="#">

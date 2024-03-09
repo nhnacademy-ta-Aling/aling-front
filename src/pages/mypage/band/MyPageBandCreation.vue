@@ -1,26 +1,22 @@
 <script>
 import { Editor } from "@toast-ui/vue-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
+import { FileCategory } from "@/main";
 import { Header } from "@/main";
 
 export default {
   components: {
     Editor,
   },
-  // eslint-disable-next-line no-unused-vars
-  beforeRouteUpdate(to, from, next) {
-    next();
-    this.fetchData();
-  },
   data() {
     return {
-      bandDetail: null,
       avatarSize: 100,
       bandName: "",
-      rewriteBandName: "",
       bandNameSuccess: false,
       bandNameMessage: "",
 
+      bandConvertImage: null,
+      bandTmpImage: null,
       immediateJoin: true,
       exposurePost: true,
       editorOptions: {
@@ -35,35 +31,10 @@ export default {
   },
   computed: {
     checkBtn() {
-      return (
-        this.rewriteBandName.trim() === "" ||
-        this.bandNameSuccess ||
-        this.rewriteBandName === this.bandName
-      );
+      return this.bandName.trim() === "" || this.bandNameSuccess;
     },
-  },
-  created() {
-    this.fetchData();
   },
   methods: {
-    fetchData() {
-      this.error = this.bandDetail = null;
-      this.loading = true;
-      this.$axios
-        .get("/user/api/v1/bands/" + this.$route.params.bandName)
-        .then((response) => {
-          this.loading = false;
-          this.bandDetail = response.data.bandInfo;
-          this.rewriteBandName = this.bandName = this.bandDetail.name;
-          this.immediateJoin = this.bandDetail.isEnter;
-          this.exposurePost = this.bandDetail.isViewContent;
-          this.bandDescription = this.bandDetail.info;
-          this.$refs.tuiEditor.invoke("setMarkdown", this.bandDescription);
-        })
-        .catch(() => {
-          alert("server error!");
-        });
-    },
     enableCheckBtn() {
       this.bandNameSuccess = false;
       this.bandNameMessage = "";
@@ -73,15 +44,14 @@ export default {
       this.validMessage = "";
     },
     checkBandName() {
-      if (this.rewriteBandName.trim() === "") {
+      if (this.bandName.trim() === "") {
         this.bandNameMessage = "그룹 명을 입력해주세요.";
         return;
       }
 
       this.$axios
         .get(
-          "/user/api/v1/bands/check-duplicate?bandName=" +
-            this.rewriteBandName.trim()
+          "/user/api/v1/bands/check-duplicate?bandName=" + this.bandName.trim()
         )
         .then((response) => {
           if (response.data.isExist) {
@@ -96,25 +66,29 @@ export default {
           alert("server error!");
         });
     },
-    uploadImage() {},
+    upload(e) {
+      let file = e.target.files[0];
+      let url = URL.createObjectURL(file);
+      this.bandTmpImage = url;
+      this.bandConvertImage = file;
+    },
     getEditorInput() {
       this.bandDescription = this.$refs.tuiEditor.invoke("getMarkdown");
       this.rewrite();
     },
-    modifyGroup() {
+    async createGroup() {
       const data = {
-        newBandName: this.rewriteBandName,
+        bandName: this.bandName,
         isEnter: this.immediateJoin,
         isViewContent: this.exposurePost,
         bandInfo: this.bandDescription,
         fileNo: null,
-        // 그룹 이미지 파일 업로드 추가 예정
       };
-      if (this.rewriteBandName.trim() === "") {
+      if (this.bandName.trim() === "") {
         this.validMessage = "그룹명을 입력해주세요.";
         return;
       }
-      if (!this.bandNameSuccess && !(this.bandName === this.rewriteBandName)) {
+      if (!this.bandNameSuccess) {
         this.validMessage = "중복 검사를 해주세요.";
         return;
       }
@@ -123,21 +97,45 @@ export default {
         return;
       }
 
-      const bandHeader = Header.X_BAND_NO;
-      const headers = {
-        "Content-Type": "application/json",
-        [bandHeader]: this.bandDetail.bandNo,
-      };
+      if (this.bandConvertImage !== null) {
+        const fileHeader = Header.X_FILE_CATEGORY;
+        let formData = new FormData();
+        formData.append("files", this.bandConvertImage);
+        await this.$axios
+          .post("/file/api/v1/files", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              [fileHeader]: FileCategory.GROUP_PROFILE,
+            },
+          })
+          .then((response) => {
+            if (response.data.length > 0) {
+              data.fileNo = response.data[0].fileNo;
+            }
+          })
+          .catch(() => {
+            alert("이미지 저장에 실패하였습니다.");
+          });
+      }
+
       this.$axios
-        .put("/user/api/v1/bands/" + this.bandName, JSON.stringify(data), {
-          headers: headers,
+        .post("/user/api/v1/bands", JSON.stringify(data), {
+          headers: {
+            "Content-Type": "application/json",
+          },
         })
         .then(() => {
-          window.location.replace("/my-page/bands/" + this.rewriteBandName);
-          alert("그룹 수정 완료");
+          alert("그룹 생성 완료");
+          window.location.reload(true);
         })
-        .catch(() => {
-          alert("server error!");
+        .catch((error) => {
+          if (error.response.status === 400) {
+            alert(
+              "그룹은 3개까지 소유할 수 있습니다. \n새 그룹을 생성하시려면 기존 그룹을 탈퇴 및 삭제해야합니다."
+            );
+          } else {
+            alert("server error!");
+          }
         });
     },
   },
@@ -147,8 +145,8 @@ export default {
 <template>
   <v-responsive max-height="1000px">
     <!-- Vuetify Modal -->
-    <v-card class="custom-card-margin" v-if="this.$refs.tuiEditor !== null">
-      <v-card-title>그룹 기본 정보 수정</v-card-title>
+    <v-card class="custom-card-margin">
+      <v-card-title>그룹 생성</v-card-title>
       <v-divider></v-divider>
       <v-divider></v-divider>
 
@@ -158,18 +156,33 @@ export default {
           <v-row>
             <v-col cols="4" class="custom-center">
               <v-img
-                class="image-container change-cursor"
+                class="image-container"
                 alt="no image"
-                src="../../assets/band-no-image.png"
-                @click="uploadImage"
-              ></v-img>
+                :src="
+                  bandTmpImage
+                    ? bandTmpImage
+                    : require('@/assets/band-no-image.png')
+                "
+              >
+                <div class="plusBtn">
+                  <input
+                    accept="image/*"
+                    @change="upload"
+                    type="file"
+                    id="file"
+                  />
+                  <label for="file">
+                    <div class="btn-upload">+</div>
+                  </label>
+                </div>
+              </v-img>
             </v-col>
             <v-col cols="8">
               <label class="custom-label custom-inline">그룹명</label>
               <v-text-field
                 solo
                 class="custom-inline"
-                v-model.trim="rewriteBandName"
+                v-model.trim="bandName"
                 @input="enableCheckBtn"
                 placeholder="Band Name"
                 maxlength="30"
@@ -222,13 +235,11 @@ export default {
             :options="editorOptions"
             height="300px"
             initialEditType="wysiwyg"
-            :initialValue="this.bandDescription"
             previewStyle="vertical"
             @change="getEditorInput"
           >
           </Editor>
 
-          <br />
           <v-messages
             :value="[validMessage]"
             class="red--text"
@@ -239,7 +250,7 @@ export default {
 
       <v-card-actions class="justify-end">
         <!-- Create Group Button -->
-        <v-btn @click="modifyGroup" color="primary">그룹 정보 수정</v-btn>
+        <v-btn @click="createGroup" color="primary">그룹 생성</v-btn>
       </v-card-actions>
     </v-card>
   </v-responsive>
@@ -278,5 +289,28 @@ export default {
 
 .custom-card-margin {
   padding: 1em;
+}
+
+.btn-upload {
+  width: 25px;
+  height: 25px;
+  background: #fff;
+  border: 2px solid rgb(77, 77, 77);
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: right;
+
+  &:hover {
+    background: rgb(77, 77, 77);
+    color: #fff;
+  }
+}
+
+#file {
+  display: none;
 }
 </style>
