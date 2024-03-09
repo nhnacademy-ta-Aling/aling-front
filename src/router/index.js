@@ -23,6 +23,10 @@ import UserRegisterMainView from "@/pages/user/register/UserRegisterMainView.vue
 import LoginView from "@/pages/user/login/LoginView.vue";
 import PostMainView from "@/pages/post/PostMainView.vue";
 import SinglePost from "@/pages/post/SinglePost.vue";
+import MyPageIndexMainView from "@/pages/mypage/MyPageIndexMainView.vue";
+import MyPageUser from "@/pages/mypage/user/MyPageUser.vue";
+import MyPageNormalPost from "@/pages/mypage/post/MyPageNormalPost.vue";
+import MyPageBandPost from "@/pages/mypage/post/MyPageBandPost.vue";
 
 Vue.use(VueRouter);
 
@@ -114,6 +118,24 @@ const routes = [
           {
             path: ":bandName/closing",
             component: MyPageBandClosing,
+          },
+        ],
+      },
+      {
+        path: "",
+        component: MyPageIndexMainView,
+        children: [
+          {
+            path: "",
+            component: MyPageUser,
+          },
+          {
+            path: "normal-posts",
+            component: MyPageNormalPost,
+          },
+          {
+            path: "band-posts",
+            component: MyPageBandPost,
           },
         ],
       },
