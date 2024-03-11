@@ -17,7 +17,8 @@ export default {
           headers: {
             Authorization: "Bearer " + this.$cookies.get("access_token"),
             // FIXME 유저 식별 정보 넘어갈 수 있도록 수정
-            "X-TEMP-USER-NO": 117,
+            "X-TEMP-USER-NO": 2,
+            "X-BAND-NO": 15,
           },
         })
         .then((response) => {

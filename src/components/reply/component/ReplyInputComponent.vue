@@ -6,11 +6,6 @@ export default {
       (value) => (value && value.length >= 2) || "길이가 너무 짧아요",
     ],
   }),
-  methods: {
-    submit() {
-      this.$v.$touch();
-    },
-  },
 };
 </script>
 

@@ -4,12 +4,18 @@ import ReplyInputComponent from "@/components/reply/component/ReplyInputComponen
 
 export default {
   components: { ReplyInputComponent, ReplyComponent },
+  props: {
+    postNo: {
+      required: true,
+      type: Number,
+    },
+  },
   data: () => ({
     replies: null,
   }),
   mounted() {
     this.$axios
-      .get("/post/api/v1/posts/" + this.$route.params.postNo + "/replies", {
+      .get("/post/api/v1/posts/" + this.postNo + "/replies", {
         params: {
           page: 0,
           size: 5,

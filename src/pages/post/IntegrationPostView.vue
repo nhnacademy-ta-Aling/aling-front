@@ -91,14 +91,11 @@ export default {
         </div>
       </div>
       <v-carousel hide-delimiters height="auto" class="py-6">
-        <v-carousel-item
-          v-for="(item, index) in postData.post.file"
-          :key="index"
-        >
+        <v-carousel-item v-for="(item, index) in postData.files" :key="index">
           <v-img aspect-ratio="1.7" max-height="350" contain :src="item.path" />
         </v-carousel-item>
       </v-carousel>
-      <post-bottom-component />
+      <post-bottom-component :postNo="postData.post.postNo" />
       <v-divider></v-divider>
     </v-responsive>
   </v-sheet>
