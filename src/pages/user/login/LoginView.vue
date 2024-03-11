@@ -25,8 +25,8 @@ export default {
         .post("/auth/api/v1/jwt/issue", JSON.stringify(params), {
           headers: {
             "Content-Type": "application/json",
-            "Login-Id": params.email,
-            "Login-Pwd": params.password,
+            "X-Login-Id": params.email,
+            "X-Login-Pwd": params.password,
           },
         })
         .then(() => {
