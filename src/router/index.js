@@ -142,6 +142,8 @@ const routes = [
         path: "scraps",
         name: "mypage-scraps-view",
         component: ScrapView,
+      },
+      {
         path: "",
         component: MyPageIndexMainView,
         children: [
