@@ -12,7 +12,7 @@
           <table>
             <thead>
               <tr>
-                <th style="text-align: center; width: 10%">No</th>
+                <th style="text-align: center; width: 10%">번호</th>
                 <th style="text-align: center">게시물</th>
                 <th style="text-align: center; width: 90px">스크랩 취소</th>
               </tr>
@@ -50,7 +50,6 @@
           <custom-pagination
             class="text-center"
             :currentPage="this.pageNumber"
-            :pageBtnLength="5"
             :totalPage="this.totalPages"
             @clickPageBtn="updatePage"
           ></custom-pagination>
@@ -72,8 +71,8 @@ export default {
   components: { CustomPagination, CustomMyPageHeader },
   data() {
     return {
-      size: this.$route.params.size,
-      pageNumber: this.$route.params.page,
+      sizeNumber: this.$route.query.size || 5,
+      pageNumber: this.$route.query.page || 0,
       totalPages: 0,
       totalElements: 0,
       scraps: [],
@@ -85,27 +84,17 @@ export default {
   },
   created() {
     this.fetchData();
-    this.handleResize();
-    window.addEventListener("resize", this.handleResize);
-  },
-  destroyed() {
-    window.removeEventListener("resize", this.handleResize);
   },
   methods: {
     fetchData() {
       this.loading = true;
-      const token = this.$cookie.get("Authorization");
-      const config = {
-        headers: { Authorization: token },
-      };
 
       this.$axios
         .get(
           "/user/api/v1/post-scraps/posts?page=" +
             this.pageNumber +
             "&size=" +
-            this.size,
-          config
+            this.sizeNumber
         )
         .then((response) => {
           console.log(response);
@@ -121,16 +110,11 @@ export default {
     },
     updatePage(pageNum) {
       window.location.href =
-        "/my-page/scraps?size=" + this.size + "&page=" + pageNum;
+        "/my-page/scraps?size=" + this.sizeNumber + "&page=" + pageNum;
     },
     scrapCancel(postNo) {
-      const token = this.$cookie.get("Authorization");
-      const config = {
-        headers: { Authorization: token },
-      };
-
       this.$axios
-        .post("/user/api/v1/post-scraps/" + postNo, {}, config)
+        .post("/user/api/v1/post-scraps/" + postNo, {})
         .then((response) => {
           console.log(response);
 
