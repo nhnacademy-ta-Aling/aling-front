@@ -21,7 +21,10 @@
       <v-spacer class="hidden-sm-and-down" />
       <v-toolbar-items class="hidden-sm-and-down">
         <v-tabs>
-          <v-tab key="my-info">
+          <v-tab
+            key="my-info"
+            style="min-width: 60px; max-width: 60px; min-height: 55px; top: 2px"
+          >
             <router-link to="/my-page">
               <img
                 class="img-logo-route"
@@ -30,12 +33,27 @@
               />
             </router-link>
           </v-tab>
-          <v-tab key="band">
+          <v-tab
+            key="band"
+            style="min-width: 60px; max-width: 60px; min-height: 55px; top: 2px"
+          >
             <router-link to="/my-page/bands">
               <img
                 class="img-logo-route"
                 :src="require('@/assets/icons/005-group-management.svg')"
                 alt="band"
+              />
+            </router-link>
+          </v-tab>
+          <v-tab
+            key="scrap"
+            style="min-width: 60px; max-width: 60px; min-height: 55px; top: 2px"
+          >
+            <router-link to="/my-page/scraps">
+              <img
+                class="img-logo-route"
+                :src="require('@/assets/icons/007-heart-dir.svg')"
+                alt="scrap"
               />
             </router-link>
           </v-tab>
@@ -72,6 +90,16 @@
               <v-icon>groups</v-icon>
             </v-list-item-icon>
             <v-list-item-title>그룹 관리</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+      <v-list nav dense>
+        <v-list-item-group>
+          <v-list-item :href="'/my-page/scraps'">
+            <v-list-item-icon>
+              <v-icon>scrap</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>스크랩</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>

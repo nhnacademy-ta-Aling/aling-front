@@ -48,7 +48,7 @@ export default {
       icon
       color="primary"
       v-for="index in size"
-      :key="start + index - 1"
+      :key="index"
       @click="$emit('clickPageBtn', start + index - 1)"
       :class="{ 'custom-bold': start + index - 1 === currentPage }"
     >
