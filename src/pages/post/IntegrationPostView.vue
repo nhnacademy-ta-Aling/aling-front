@@ -8,8 +8,9 @@ import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight/d
 
 import Prism from "prismjs";
 import "prismjs/themes/prism-solarizedlight.css";
-import PostBottomComponent from "@/pages/post/component/PostBottomComponent.vue";
-import PostHeaderComponent from "@/pages/post/component/PostHeaderComponent.vue";
+import PostBottomComponent from "@/components/post/PostBottomComponent.vue";
+import PostHeaderComponent from "@/components/post/PostHeaderComponent.vue";
+import { PostPlaceHolder } from "@/pages/post/script/ContentPlaceHolder";
 
 export default {
   components: {
@@ -33,17 +34,14 @@ export default {
   methods: {
     fetchData() {
       this.$axios
-        .get("/post/api/v1/posts/" + this.$route.params.postNo, {
-          headers: {
-            Authorization: "Bearer " + this.$cookies.get("access_token"),
-          },
-        })
+        .get("/post/api/v1/posts/" + this.$route.params.postNo)
         .then((response) => {
           this.postData = response.data;
           console.log(this.postData);
         })
         .catch((error) => {
           console.log(error);
+          this.postData = PostPlaceHolder;
         });
     },
     toggleContentMore() {

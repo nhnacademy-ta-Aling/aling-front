@@ -1,5 +1,5 @@
 <script>
-import ReplyListModal from "@/components/reply/ReplyListModal.vue";
+import ReplyListModal from "@/pages/reply/ReplyListModal.vue";
 
 export default {
   props: {
