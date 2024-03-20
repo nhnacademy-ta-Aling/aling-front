@@ -1,11 +1,17 @@
 <script>
 export default {
-  methods: {
-    copyLink() {
-      console.log("copy link");
+  props: {
+    postNo: {
+      required: true,
+      type: Number,
     },
-    alertReport() {
-      console.log("신고");
+  },
+  methods: {
+    copyLink(post) {
+      console.log("링크가 복사되었습니다. PostNo:", post);
+    },
+    alertReport(post) {
+      console.log("신고되었습니다. PostNo:", post);
     },
   },
 };
@@ -20,13 +26,13 @@ export default {
     </template>
     <v-list>
       <v-list dense rounded>
-        <v-list-item @click="copyLink">
+        <v-list-item @click="copyLink(postNo)">
           <v-list-item-icon>
             <v-icon>mdi-clippy</v-icon>
           </v-list-item-icon>
           <v-list-item-title>링크 복사</v-list-item-title>
         </v-list-item>
-        <v-list-item @click="alertReport">
+        <v-list-item @click="alertReport(postNo)">
           <v-list-item-icon>
             <v-icon>mdi-alert-box-outline</v-icon>
           </v-list-item-icon>

@@ -1,5 +1,5 @@
 <script>
-import PostThreeDotMenuComponent from "@/pages/post/component/PostThreeDotMenuComponent.vue";
+import PostThreeDotMenuComponent from "@/components/post/PostThreeDotMenuComponent.vue";
 
 export default {
   components: {
@@ -37,7 +37,7 @@ export default {
         {{ postData.post.createAt }}
       </p>
     </v-col>
-    <post-three-dot-menu-component />
+    <post-three-dot-menu-component :postNo="postData.post.postNo" />
   </v-row>
 </template>
 
