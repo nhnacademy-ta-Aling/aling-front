@@ -22,11 +22,9 @@ export default {
         document.cookie = "exuser= ; path=/login";
       }
       this.$axios
-        .post("/auth/api/v1/jwt/issue", JSON.stringify(params), {
+        .post("/user/api/v1/login", JSON.stringify(params), {
           headers: {
             "Content-Type": "application/json",
-            "Login-Id": params.email,
-            "Login-Pwd": params.password,
           },
         })
         .then(() => {
