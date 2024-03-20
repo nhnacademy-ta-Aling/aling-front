@@ -77,6 +77,9 @@
           <v-list-item :href="'/my-page'">
             <v-list-item-title>프로필</v-list-item-title>
           </v-list-item>
+          <v-list-item>
+            <v-list-item-title v-on:click="logout">로그아웃</v-list-item-title>
+          </v-list-item>
           <v-list-item :href="'/my-page/bands'">
             <v-list-item-title>그룹 관리</v-list-item-title>
           </v-list-item>
@@ -125,6 +128,28 @@ export default {
   }),
   components: {
     BasicInput: BasicInput,
+  },
+  methods: {
+    setLogoutState() {
+      this.$store.commit("logout");
+    },
+    async logout() {
+      let userNo = this.$store.state.userNo;
+      await this.$axios
+        .get("/auth/api/v1/jwt/logout?userNo=" + userNo)
+        .then(() => {
+          this.setLogoutState();
+          window.location = "/login";
+        })
+        .catch(() => {
+          alert("실패하였습니다.");
+        });
+    },
+  },
+  beforeCreate() {
+    if (!this.$store.state.isLogin) {
+      window.location.href = "/login";
+    }
   },
 };
 </script>

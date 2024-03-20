@@ -11,6 +11,9 @@ export default {
     isEmailSave: document.cookie.match("exuser=(.*)")[1] !== "",
   }),
   methods: {
+    setUserState(userNo) {
+      this.$store.commit("setUser", userNo);
+    },
     login() {
       const params = {
         email: this.email,
@@ -29,7 +32,9 @@ export default {
             "X-Login-Pwd": params.password,
           },
         })
-        .then(() => {
+        .then((response) => {
+          let userNo = response.headers.get("X-User-No");
+          this.setUserState(userNo);
           window.location = "/";
         })
         .catch(() => {
