@@ -5,9 +5,23 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import axios from "axios";
 import "material-design-icons-iconfont/dist/material-design-icons.css";
+import VueCookies from "vue-cookies";
 
-Vue.prototype.$axios = axios;
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 401) {
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  }
+);
+
 Vue.config.productionTip = false;
+Vue.prototype.$axios = axios;
+Vue.use(VueCookies);
 
 new Vue({
   icons: {

@@ -11,6 +11,9 @@ export default {
     isEmailSave: document.cookie.match("exuser=(.*)")[1] !== "",
   }),
   methods: {
+    setUserState(userNo) {
+      this.$store.commit("setUser", userNo);
+    },
     login() {
       const params = {
         email: this.email,
@@ -22,14 +25,14 @@ export default {
         document.cookie = "exuser= ; path=/login";
       }
       this.$axios
-        .post("/auth/api/v1/jwt/issue", JSON.stringify(params), {
+        .post("/user/api/v1/login", JSON.stringify(params), {
           headers: {
             "Content-Type": "application/json",
-            "Login-Id": params.email,
-            "Login-Pwd": params.password,
           },
         })
-        .then(() => {
+        .then((response) => {
+          let userNo = response.headers.get("X-User-No");
+          this.setUserState(userNo);
           window.location = "/";
         })
         .catch(() => {
