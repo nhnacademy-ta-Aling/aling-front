@@ -5,9 +5,14 @@
         class="hidden-md-and-up"
         @click="drawer = true"
       ></v-app-bar-nav-icon>
-      <v-app-bar-title class="hidden-sm-and-down">
+      <v-app-bar-title class="hidden-sm-and-down" style="padding-left: 0">
         <a href="/">
-          <img src="@/assets/logo.svg" class="img-logo" alt="logo" />
+          <img
+            src="@/assets/logo.svg"
+            class="img-logo"
+            alt="logo"
+            style="height: 42px"
+          />
         </a>
       </v-app-bar-title>
       <v-spacer class="hidden-md-and-up" />
@@ -23,54 +28,97 @@
         <basic-input
           type="text"
           placeholder="Search..."
-          style="width: 13rem; height: 48px"
+          style="
+            width: 13rem;
+            height: 43px;
+            padding-top: 10px;
+            padding-left: 5px;
+            margin-right: 5px;
+          "
         />
         <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
+          <v-icon size="27">mdi-magnify</v-icon>
         </v-btn>
-        <v-tabs>
-          <v-tab key="home">
-            <router-link to="/">
-              <img
-                class="img-logo-route"
-                :src="require('@/assets/icons/001-home.svg')"
-                alt="home"
-              />
-            </router-link>
-          </v-tab>
-          <v-tab key="recruit">
-            <router-link to="#">
-              <img
-                class="img-logo-route"
-                :src="require('@/assets/icons/002-recruit.svg')"
-                alt="recruit"
-              />
-            </router-link>
-          </v-tab>
-          <v-tab key="band">
-            <router-link to="/bands">
-              <img
-                class="img-logo-route"
-                :src="require('@/assets/icons/003-group.svg')"
-                alt="band"
-              />
-            </router-link>
-          </v-tab>
-          <v-tab key="notify">
-            <router-link to="#">
-              <img
-                class="img-logo-route"
-                :src="require('@/assets/icons/004-notice.svg')"
-                alt="notice"
-              />
-            </router-link>
-          </v-tab>
-        </v-tabs>
+        <div style="padding: 0 5px 0 3px">
+          <v-tabs>
+            <v-tab
+              key="home"
+              style="
+                min-width: 60px;
+                max-width: 60px;
+                min-height: 55px;
+                top: 2px;
+              "
+            >
+              <router-link to="/">
+                <img
+                  class="img-logo-route"
+                  :src="require('@/assets/icons/001-home.svg')"
+                  alt="home"
+                />
+              </router-link>
+            </v-tab>
+            <v-tab
+              key="recruit"
+              style="
+                min-width: 60px;
+                max-width: 60px;
+                min-height: 55px;
+                top: 2px;
+              "
+            >
+              <router-link to="#">
+                <img
+                  class="img-logo-route"
+                  :src="require('@/assets/icons/002-recruit.svg')"
+                  alt="recruit"
+                  style="margin-bottom: 3px"
+                />
+              </router-link>
+            </v-tab>
+            <v-tab
+              key="band"
+              style="
+                min-width: 60px;
+                max-width: 60px;
+                min-height: 55px;
+                top: 2px;
+              "
+            >
+              <router-link to="/bands">
+                <img
+                  class="img-logo-route"
+                  :src="require('@/assets/icons/003-group.svg')"
+                  alt="band"
+                  style="margin-bottom: 3px"
+                />
+              </router-link>
+            </v-tab>
+            <v-tab
+              key="notify"
+              style="
+                min-width: 60px;
+                max-width: 60px;
+                min-height: 55px;
+                top: 2px;
+              "
+            >
+              <router-link to="#">
+                <img
+                  class="img-logo-route"
+                  :src="require('@/assets/icons/004-notice.svg')"
+                  alt="notice"
+                  style="margin-bottom: 3px"
+                />
+              </router-link>
+            </v-tab>
+          </v-tabs>
+        </div>
       </v-toolbar-items>
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
-            <v-avatar color="#3D6BFF" size="32" />
+            <v-avatar color="#3D6BFF" size="38" />
           </v-btn>
         </template>
         <v-list>

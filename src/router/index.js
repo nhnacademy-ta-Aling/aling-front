@@ -29,6 +29,7 @@ import MyPageNormalPost from "@/pages/mypage/post/MyPageNormalPost.vue";
 import MyPageBandPost from "@/pages/mypage/post/MyPageBandPost.vue";
 import IntegrationPostView from "@/pages/post/IntegrationPostView.vue";
 import VueCookies from "vue-cookies";
+import ScrapView from "@/pages/mypage/scrap/ScrapView.vue";
 
 Vue.use(VueRouter);
 Vue.use(VueCookies);
@@ -136,6 +137,11 @@ const routes = [
             component: MyPageBandClosing,
           },
         ],
+      },
+      {
+        path: "scraps",
+        name: "mypage-scraps-view",
+        component: ScrapView,
       },
       {
         path: "",
