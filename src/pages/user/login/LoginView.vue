@@ -115,13 +115,15 @@ export default {
                       </router-link>
                     </v-col>
                     <v-col cols="auto">
-                      <router-link to="#">
+                      <a
+                        href="https://github.com/login/oauth/authorize?client_id=Iv1.60b50ca131c586d7&scope=id,name,email"
+                      >
                         <v-img
                           src="/oauthicons/github-icon.png"
                           alt="github"
                           class="oauth-icon"
                         />
-                      </router-link>
+                      </a>
                     </v-col>
                   </v-row>
                 </v-card-text>
