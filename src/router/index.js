@@ -29,6 +29,7 @@ import MyPageNormalPost from "@/pages/mypage/post/MyPageNormalPost.vue";
 import MyPageBandPost from "@/pages/mypage/post/MyPageBandPost.vue";
 import IntegrationPostView from "@/pages/post/IntegrationPostView.vue";
 import VueCookies from "vue-cookies";
+import GithubCallbackView from "@/pages/user/login/GithubCallbackView.vue";
 
 Vue.use(VueRouter);
 Vue.use(VueCookies);
@@ -181,6 +182,11 @@ const routes = [
   {
     path: "/login",
     component: LoginView,
+  },
+  {
+    path: "/oauth/github",
+    name: "oauth-github-login-view",
+    component: GithubCallbackView,
   },
   {
     path: "/admin",
