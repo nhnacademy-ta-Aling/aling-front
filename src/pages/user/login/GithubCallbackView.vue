@@ -10,13 +10,12 @@ export default {
           "/user/api/v1/login/oauth/github?code=" +
             new URL(window.location.href).searchParams.get("code")
         )
-        .then((r) => {
-          console.log("then : " + r);
+        .then(() => {
           window.location = "/";
         })
-        .catch((r) => {
-          console.log("catch : " + r);
-          alert("요청 실패");
+        .catch(() => {
+          alert("GitHub 로그인에 실패하였습니다. 재시도해주세요.");
+          window.location = "/login";
         });
     });
   },
