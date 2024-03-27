@@ -29,6 +29,11 @@ import MyPageNormalPost from "@/pages/mypage/post/MyPageNormalPost.vue";
 import MyPageBandPost from "@/pages/mypage/post/MyPageBandPost.vue";
 import IntegrationPostView from "@/pages/post/IntegrationPostView.vue";
 import VueCookies from "vue-cookies";
+import RecruitMainView from "@/pages/recruit/RecruitMainView.vue";
+import RecruitList from "@/pages/recruit/RecruitList.vue";
+import MyPageRecruitPostView from "@/pages/mypage/recruitpost/MyPageRecruitPostView.vue";
+import MyPageRecruitPostList from "@/pages/mypage/recruitpost/MyPageRecruitPostList.vue";
+import MyPageRecruitPostCreation from "@/pages/mypage/recruitpost/MyPageRecruitPostCreation.vue";
 
 Vue.use(VueRouter);
 Vue.use(VueCookies);
@@ -46,6 +51,19 @@ const routes = [
           {
             path: "",
             component: CustomContents,
+          },
+        ],
+      },
+      {
+        path: "/recruit-posts",
+        component: RecruitMainView,
+        meta: {
+          title: "Aling - 채용공고",
+        },
+        children: [
+          {
+            path: "",
+            component: RecruitList,
           },
         ],
       },
@@ -134,6 +152,20 @@ const routes = [
           {
             path: ":bandName/closing",
             component: MyPageBandClosing,
+          },
+        ],
+      },
+      {
+        path: "recruit-posts",
+        component: MyPageRecruitPostView,
+        children: [
+          {
+            path: "",
+            component: MyPageRecruitPostList,
+          },
+          {
+            path: "new",
+            component: MyPageRecruitPostCreation,
           },
         ],
       },

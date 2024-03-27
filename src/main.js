@@ -35,6 +35,16 @@ export const BandUserRole = Object.freeze({
   BAND_ROLE_USER: 3,
 });
 
+export const Career = Object.freeze({
+  NEW: "신입",
+  LESS_ONE_YEAR: "1년 미만",
+  MORE_ONE_YEAR: "1년 이상",
+  MORE_TWO_YEAR: "2년 이상",
+  MORE_THREE_YEAR: "3년 이상",
+  MORE_FIVE_YEAR: "5년 이상",
+  MORE_TEN_YEAR: "10년 이상",
+});
+
 export const Header = Object.freeze({
   X_BAND_NO: "X-BAND-NO",
   X_FILE_CATEGORY: "X-File-Category",

@@ -39,6 +39,15 @@
               />
             </router-link>
           </v-tab>
+          <v-tab key="recruit">
+            <router-link to="/my-page/recruit-posts">
+              <img
+                class="img-logo-route"
+                :src="require('@/assets/icons/007-recruit-management.png')"
+                alt="recruit"
+              />
+            </router-link>
+          </v-tab>
         </v-tabs>
       </v-toolbar-items>
       <v-menu offset-y>
@@ -72,6 +81,16 @@
               <v-icon>groups</v-icon>
             </v-list-item-icon>
             <v-list-item-title>그룹 관리</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+      <v-list nav dense>
+        <v-list-item-group>
+          <v-list-item :href="'/my-page/recruit-posts'">
+            <v-list-item-icon>
+              <v-icon>handshake</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>채용공고 관리</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>

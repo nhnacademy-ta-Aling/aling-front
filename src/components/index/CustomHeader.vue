@@ -39,7 +39,7 @@
             </router-link>
           </v-tab>
           <v-tab key="recruit">
-            <router-link to="#">
+            <router-link to="/recruit-posts">
               <img
                 class="img-logo-route"
                 :src="require('@/assets/icons/002-recruit.svg')"
@@ -80,6 +80,10 @@
           <v-list-item :href="'/my-page/bands'">
             <v-list-item-title>그룹 관리</v-list-item-title>
           </v-list-item>
+          <!-- 추후 권한 확인하여 숨김 유무 설정 예정 -->
+          <v-list-item :href="'/my-page/recruit-posts'">
+            <v-list-item-title>채용공고 관리</v-list-item-title>
+          </v-list-item>
           <v-list-item v-for="n in 4" :key="n" @click="() => {}">
             <v-list-item-title>Option {{ n }}</v-list-item-title>
           </v-list-item>
@@ -96,7 +100,7 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item>
 
-          <v-list-item :href="'#'">
+          <v-list-item :href="'/recruit-posts'">
             <v-list-item-icon>
               <v-icon>handshake</v-icon>
             </v-list-item-icon>
