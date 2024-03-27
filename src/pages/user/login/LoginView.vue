@@ -98,17 +98,6 @@ export default {
                   <v-row justify="space-around">
                     <v-col cols="auto">
                       <a
-                        href="https://kauth.kakao.com/oauth/authorize?client_id=7c624b0121e4dcbb29847d3ebf78d090&redirect_uri=http://localhost:8080/oauth/kakao&response_type=code"
-                      >
-                        <v-img
-                          src="/oauthicons/kakao-icon.png"
-                          alt="kakao"
-                          class="oauth-icon"
-                        />
-                      </a>
-                    </v-col>
-                    <v-col cols="auto">
-                      <a
                         href="https://accounts.google.com/o/oauth2/v2/auth?client_id=459224556708-qcr0lse1o89p4a63opeja3k3ibcs1i68.apps.googleusercontent.com&redirect_uri=http://localhost:8080/oauth/google&response_type=code&scope=email"
                       >
                         <v-img
