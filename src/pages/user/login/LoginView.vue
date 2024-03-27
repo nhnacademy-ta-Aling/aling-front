@@ -22,11 +22,9 @@ export default {
         document.cookie = "exuser= ; path=/login";
       }
       this.$axios
-        .post("/auth/api/v1/jwt/issue", JSON.stringify(params), {
+        .post("/user/api/v1/login", JSON.stringify(params), {
           headers: {
             "Content-Type": "application/json",
-            "Login-Id": params.email,
-            "Login-Pwd": params.password,
           },
         })
         .then(() => {
@@ -108,22 +106,26 @@ export default {
                       </router-link>
                     </v-col>
                     <v-col cols="auto">
-                      <router-link to="#">
+                      <a
+                        href="https://accounts.google.com/o/oauth2/v2/auth?client_id=459224556708-qcr0lse1o89p4a63opeja3k3ibcs1i68.apps.googleusercontent.com&redirect_uri=http://localhost:8080/oauth/google&response_type=code&scope=email"
+                      >
                         <v-img
-                          src="/oauthicons/naver-icon.png"
-                          alt="naver"
+                          src="/oauthicons/google-icon.png"
+                          alt="google"
                           class="oauth-icon"
                         />
-                      </router-link>
+                      </a>
                     </v-col>
                     <v-col cols="auto">
-                      <router-link to="#">
+                      <a
+                        href="https://github.com/login/oauth/authorize?client_id=Iv1.60b50ca131c586d7&scope=id,name,email"
+                      >
                         <v-img
                           src="/oauthicons/github-icon.png"
                           alt="github"
                           class="oauth-icon"
                         />
-                      </router-link>
+                      </a>
                     </v-col>
                   </v-row>
                 </v-card-text>
