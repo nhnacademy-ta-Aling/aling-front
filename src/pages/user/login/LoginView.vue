@@ -97,13 +97,15 @@ export default {
                   <p class="social-login-text">소셜로 시작하기</p>
                   <v-row justify="space-around">
                     <v-col cols="auto">
-                      <router-link to="#">
+                      <a
+                        href="https://kauth.kakao.com/oauth/authorize?client_id=7c624b0121e4dcbb29847d3ebf78d090&redirect_uri=http://localhost:8080/oauth/kakao//&response_type=code"
+                      >
                         <v-img
                           src="/oauthicons/kakao-icon.png"
                           alt="kakao"
                           class="oauth-icon"
                         />
-                      </router-link>
+                      </a>
                     </v-col>
                     <v-col cols="auto">
                       <a
